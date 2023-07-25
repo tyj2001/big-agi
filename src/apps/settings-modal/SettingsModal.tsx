@@ -1,37 +1,40 @@
-import * as React from 'react';
-import { useRouter } from 'next/router';
+// SettingsModal.js
+import * as React from "react";
+import { useRouter } from "next/router";
+import { Button, Divider, Tab, TabList, TabPanel, Tabs } from "@mui/joy";
+import BuildCircleIcon from "@mui/icons-material/BuildCircle";
+import { ElevenlabsSettings } from "~/modules/elevenlabs/ElevenlabsSettings";
+import { ProdiaSettings } from "~/modules/prodia/ProdiaSettings";
 
-import { Button, Divider, Tab, TabList, TabPanel, Tabs } from '@mui/joy';
-import BuildCircleIcon from '@mui/icons-material/BuildCircle';
+import { GoodModal } from "~/common/components/GoodModal";
+import { useUIStateStore } from "~/common/state/store-ui";
 
-import { ElevenlabsSettings } from '~/modules/elevenlabs/ElevenlabsSettings';
-import { ProdiaSettings } from '~/modules/prodia/ProdiaSettings';
+import { ToolsSettings } from "./ToolsSettings";
+import { UISettings } from "./UISettings";
 
-import { GoodModal } from '~/common/components/GoodModal';
-import { useUIStateStore } from '~/common/state/store-ui';
+// Import useTranslation hook
+import { useTranslation } from 'react-i18next';
 
-import { ToolsSettings } from './ToolsSettings';
-import { UISettings } from './UISettings';
-
-/**
- * 组件允许用户修改客户端上通过localStorage持久化的应用程序设置。
- */
 export function SettingsModal() {
   const router = useRouter();
   const { settingsOpenTab, closeSettings, openModelsSetup } = useUIStateStore();
 
+  // Initialize the hook
+  const { t, i18n } = useTranslation();
+
   const switchLanguage = (locale: string) => {
     router.push(router.pathname, router.asPath, { locale });
+    i18n.changeLanguage(locale); // This line changes the language in react-i18next as well
   };
 
   return (
     <GoodModal
-      title={`首选项`}
+      title={t('preferences')} 
       open={!!settingsOpenTab}
       onClose={closeSettings}
       startButton={
         <Button variant='plain' color='info' onClick={openModelsSetup} startDecorator={<BuildCircleIcon />}>
-          模型
+          {t('models')} 
         </Button>
       }
       sx={{ p: { xs: 1, sm: 2, lg: 2.5 } }}
@@ -46,11 +49,11 @@ export function SettingsModal() {
           color='neutral'
           sx={{ mb: 2 /* gap: 3, minus 0.5 for the Tabs-gap, minus 0.5 for perception */ }}
         >
-          <Tab value={1}>界面</Tab>
-          <Tab value={2}>绘制</Tab>
-          <Tab value={3}>语音</Tab>
-          <Tab value={4}>工具</Tab>
-          <Tab value={5}>语言</Tab>
+          <Tab value={1}>{t('interface')}</Tab>
+          <Tab value={2}>{t('drawing')}</Tab>
+          <Tab value={3}>{t('voice')}</Tab>
+          <Tab value={4}>{t('tools')}</Tab>
+          <Tab value={5}>{t('language')}</Tab>
         </TabList>
 
         <TabPanel value={1} sx={{ p: 'var(--Tabs-gap)' }}>
@@ -71,10 +74,10 @@ export function SettingsModal() {
 
         <TabPanel value={5} sx={{ p: 'var(--Tabs-gap)' }}>
           <Button variant='outlined' onClick={() => switchLanguage('en-US')}>
-            Switch to English
+            {t('switchToEnglish')}
           </Button>
           <Button variant='outlined' onClick={() => switchLanguage('zh-CN')}>
-            切换为中文
+            {t('switchToChinese')}
           </Button>
         </TabPanel>
       </Tabs>
