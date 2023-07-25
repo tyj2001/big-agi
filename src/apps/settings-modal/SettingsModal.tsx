@@ -1,53 +1,84 @@
-import { promises as fs } from 'fs';
-import path from 'path';
+import * as React from 'react';
 import { useRouter } from 'next/router';
 
-const translateText = async (text, locale) => {
-  // 在这里使用你选择的翻译服务或库来翻译文本
-  // 这里只是一个示例，你需要根据实际情况进行修改
-  if (locale === 'zh-CN') {
-    // 将英文翻译成中文
-    return '翻译后的文本';
-  } else {
-    // 如果是其他语言，不进行翻译
-    return text;
-  }
-};
+import { Button, Divider, Tab, TabList, TabPanel, Tabs } from '@mui/joy';
+import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 
-export default function TranslatePage({ content }) {
+import { ElevenlabsSettings } from '~/modules/elevenlabs/ElevenlabsSettings';
+import { ProdiaSettings } from '~/modules/prodia/ProdiaSettings';
+
+import { GoodModal } from '~/common/components/GoodModal';
+import { useUIStateStore } from '~/common/state/store-ui';
+
+import { ToolsSettings } from './ToolsSettings';
+import { UISettings } from './UISettings';
+
+/**
+ * 组件允许用户修改客户端上通过localStorage持久化的应用程序设置。
+ */
+export function SettingsModal() {
   const router = useRouter();
-  const { locale } = router;
+  const { settingsOpenTab, closeSettings, openModelsSetup } = useUIStateStore();
 
-  return <div>{content}</div>;
-}
-
-export async function getStaticPaths() {
-  const pagesDir = path.join(process.cwd(), 'pages');
-  const filenames = await fs.readdir(pagesDir);
-
-  const paths = filenames
-    .filter((filename) => path.extname(filename) === '.js') // 只选择 JavaScript 文件
-    .map((filename) => ({
-      params: { slug: filename.replace('.js', '') },
-    }));
-
-  return { paths, fallback: false };
-}
-
-export async function getStaticProps({ params }) {
-  const { slug } = params;
-  const pagePath = path.join(process.cwd(), 'pages', `${slug}.js`);
-  const fileContent = await fs.readFile(pagePath, 'utf8');
-
-  // 提取文本内容，这里只是一个简单的示例，你可能需要根据实际情况进行修改
-  const content = fileContent.match(/'([^']+)'/)[1];
-
-  // 翻译文本
-  const translatedContent = await translateText(content, 'zh-CN');
-
-  return {
-    props: {
-      content: translatedContent,
-    },
+  const switchLanguage = (locale: string) => {
+    router.push(router.pathname, router.asPath, { locale });
   };
+
+  return (
+    <GoodModal
+      title={`首选项`}
+      open={!!settingsOpenTab}
+      onClose={closeSettings}
+      startButton={
+        <Button variant='plain' color='info' onClick={openModelsSetup} startDecorator={<BuildCircleIcon />}>
+          模型
+        </Button>
+      }
+      sx={{ p: { xs: 1, sm: 2, lg: 2.5 } }}
+    >
+      <Tabs
+        aria-label='设置选项卡菜单'
+        defaultValue={settingsOpenTab}
+        sx={{ borderRadius: 'lg' }}
+      >
+        <TabList
+          variant='soft'
+          color='neutral'
+          sx={{ mb: 2 /* gap: 3, minus 0.5 for the Tabs-gap, minus 0.5 for perception */ }}
+        >
+          <Tab value={1}>界面</Tab>
+          <Tab value={2}>绘制</Tab>
+          <Tab value={3}>语音</Tab>
+          <Tab value={4}>工具</Tab>
+          <Tab value={5}>语言</Tab>
+        </TabList>
+
+        <TabPanel value={1} sx={{ p: 'var(--Tabs-gap)' }}>
+          <UISettings />
+        </TabPanel>
+
+        <TabPanel value={2} sx={{ p: 'var(--Tabs-gap)' }}>
+          <ProdiaSettings />
+        </TabPanel>
+
+        <TabPanel value={3} sx={{ p: 'var(--Tabs-gap)' }}>
+          <ElevenlabsSettings />
+        </TabPanel>
+
+        <TabPanel value={4} sx={{ p: 'var(--Tabs-gap)' }}>
+          <ToolsSettings />
+        </TabPanel>
+
+        <TabPanel value={5} sx={{ p: 'var(--Tabs-gap)' }}>
+          <Button variant='outlined' onClick={() => switchLanguage('en-US')}>
+            Switch to English
+          </Button>
+          <Button variant='outlined' onClick={() => switchLanguage('zh-CN')}>
+            切换为中文
+          </Button>
+        </TabPanel>
+      </Tabs>
+      <Divider />
+    </GoodModal>
+  );
 }
