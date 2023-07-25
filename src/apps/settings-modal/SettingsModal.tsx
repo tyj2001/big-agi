@@ -20,7 +20,7 @@ export function SettingsModal() {
   const router = useRouter();
   const { settingsOpenTab, closeSettings, openModelsSetup } = useUIStateStore();
 
-  const switchLanguage = (locale) => {
+  const switchLanguage = (locale: string) => {
     router.push(router.pathname, router.asPath, { locale });
   };
 
