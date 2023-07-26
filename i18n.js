@@ -15,7 +15,7 @@ i18n
       },
       zh: {
         translation: {
-          "preferences": "首选项",
+          "preferences": "设置",
           "models": "模型",
           "interface": "界面",
           "drawing": "绘制",
