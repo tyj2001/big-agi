@@ -1,28 +1,19 @@
 import * as React from 'react';
 import { shallow } from 'zustand/shallow';
-
 import { Box, FormControl, FormHelperText, FormLabel, Radio, RadioGroup, Stack, Switch } from '@mui/material';
-
 import { hideOnMobile, settingsGap } from '~/common/theme';
 import { isPwa } from '~/common/util/pwaUtils';
 import { useUIPreferencesStore } from '~/common/state/store-ui';
-
-// Import translation hook
 import { useTranslation } from 'react-i18next';
-
-// Import language configuration
 import languages from './languages.json';
 
-// Config
 const SHOW_PURPOSE_FINDER = false;
 
 function LanguageSelect() {
-  // Here is your LanguageSelect component code
   return <div>LanguageSelect component content</div>;
 }
 
 export function UISettings() {
-  // External state
   const {
     centerMode,
     setCenterMode,
@@ -58,7 +49,6 @@ export function UISettings() {
     shallow
   );
 
-  // Initialize translation hook
   const { t } = useTranslation();
 
   const handleCenterModeChange = (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -127,82 +117,83 @@ export function UISettings() {
             ) : (
               t('threeDots')
             )}
-             </FormHelperText>
-    </Box>
-    <Switch checked={doubleClickToEdit} onChange={handleDoubleClickToEditChange} />
-  </FormControl>
+          </FormHelperText>
+        </Box>
+        <Switch checked={doubleClickToEdit} onChange={handleDoubleClickToEditChange/>
+      </FormControl>
 
-  <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
-    <Box>
-      <FormLabel>{t('markdown')}</FormLabel>
-      <FormHelperText>
-        {renderMarkdown ? (
-          t('renderMarkdown')
-        ) : (
-          t('asText')
-        )}
-      </FormHelperText>
-    </Box>
-    <Switch checked={renderMarkdown} onChange={handleRenderMarkdownChange} />
-  </FormControl>
+      <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
+        <Box>
+          <FormLabel>{t('markdown')}</FormLabel>
+          <FormHelperText>
+            {renderMarkdown ? (
+              t('renderMarkdown')
+            ) : (
+              t('asText')
+            )}
+          </FormHelperText>
+        </Box>
+        <Switch checked={renderMarkdown} onChange={handleRenderMarkdownChange} />
+      </FormControl>
 
-  {SHOW_PURPOSE_FINDER && (
-    <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
-      <Box>
-        <FormLabel>{t('purposeFinder')}</FormLabel>
-        <FormHelperText>
-          {showPurposeFinder ? (
-            t('showSearchBar')
-          ) : (
-            t('hideSearchBar')
-          )}
-        </FormHelperText>
-      </Box>
-      <Switch checked={showPurposeFinder} onChange={handleShowSearchBarChange} />
-    </FormControl>
-  )}
+      {SHOW_PURPOSE_FINDER && (
+        <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
+          <Box>
+            <FormLabel>{t('purposeFinder')}</FormLabel>
+            <FormHelperText>
+              {showPurposeFinder ? (
+                t('showSearchBar')
+              ) : (
+                t('hideSearchBar')
+              )}
+            </FormHelperText>
+          </Box>
+          <Switch checked={showPurposeFinder} onChange={handleShowSearchBarChange} />
+        </FormControl>
+      )}
 
-  <FormControl orientation="horizontal" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-    <Box>
-      <FormLabel>{t('appearance')}</FormLabel>
-      <FormHelperText>
-        {zenMode === 'clean' ? (
-          t('showSenders')
-        ) : (
-          t('minimalUI')
-        )}
-      </FormHelperText>
-    </Box>
-    <RadioGroup orientation="horizontal" value={zenMode} onChange={handleZenModeChange}>
-      <Radio value="clean" label={t('clean')} />
-      <Radio value="cleaner" label={t('zen')} />
-    </RadioGroup>
-  </FormControl>
+      <FormControl orientation="horizontal" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+        <Box>
+          <FormLabel>{t('appearance')}</FormLabel>
+          <FormHelperText>
+            {zenMode === 'clean' ? (
+              t('showSenders')
+            ) : (
+              t('minimalUI')
+            )}
+          </FormHelperText>
+        </Box>
+        <RadioGroup orientation="horizontal" value={zenMode} onChange={handleZenModeChange}>
+          <Radio value="clean" label={t('clean')} />
+          <Radio value="cleaner" label={t('zen')} />
+        </RadioGroup>
+      </FormControl>
 
-  <FormControl orientation="horizontal" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-    <Box>
-      <FormLabel>{t('audioLanguage')}</FormLabel>
-      <FormHelperText>
-        ASR 🎙️ &amp; TTS 📢
-      </FormHelperText>
-    </Box>
-    <LanguageSelect />
-  </FormControl>
+      <FormControl orientation="horizontal" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+        <Box>
+          <FormLabel>{t('audioLanguage')}</FormLabel>
+          <FormHelperText>
+            ASR 🎙️ &amp; TTS 📢
+          </FormHelperText>
+        </Box>
+        <LanguageSelect />
+      </FormControl>
 
-  <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
-    <Box>
-      <FormLabel>{t('goofyLabs')}</FormLabel>
-      <FormHelperText>
-        {goofyLabs ? (
-          <>
-            {t('experiment')}
-          </>
-        ) : (
-          t('disabled')
-        )}
-      </FormHelperText>
-    </Box>
-    <Switch checked={goofyLabs} onChange={handleGoofyLabsChange} />
-  </FormControl>
-</Stack>
-）；}
+      <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
+        <Box>
+          <FormLabel>{t('goofyLabs')}</FormLabel>
+          <FormHelperText>
+            {goofyLabs ? (
+              <>
+                {t('experiment')}
+              </>
+            ) : (
+              t('disabled')
+            )}
+          </FormHelperText>
+        </Box>
+        <Switch checked={goofyLabs} onChange={handleGoofyLabsChange} />
+      </FormControl>
+    </Stack>
+  );
+}
