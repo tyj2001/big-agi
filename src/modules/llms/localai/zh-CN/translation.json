@@ -1,1 +1,11 @@
-
+{
+  "preferences": "偏好设置",
+  "models": "模型",
+  "interface": "界面",
+  "drawing": "绘图",
+  "voice": "语音",
+  "tools": "工具",
+  "language": "语言",
+  "switchToEnglish": "切换至英文",
+  "switchToChinese": "切换至中文"
+}
