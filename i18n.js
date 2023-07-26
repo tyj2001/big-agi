@@ -5,7 +5,7 @@ import enTranslation from './src/modules/llms/localai/en/translation.json';
 import zhTranslation from './src/modules/llms/localai/zh/translation.json';
 
 i18n
-  .use(initReactI18next) // 通过使用 initReactI18next 传入 i18next 实例
+  .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources: {
       en: {
@@ -15,11 +15,12 @@ i18n
         translation: zhTranslation,
       },
     },
-    lng: 'en',
-    fallbackLng: 'en',
+    lng: "en",
+    fallbackLng: "en",
+
     interpolation: {
-      escapeValue: false,
-    },
+      escapeValue: false
+    }
   });
 
 export default i18n;
