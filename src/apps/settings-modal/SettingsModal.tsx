@@ -73,10 +73,10 @@ export function SettingsModal() {
         </TabPanel>
 
         <TabPanel value={5} sx={{ p: 'var(--Tabs-gap)' }}>
-          <Button variant='outlined' onClick={() => switchLanguage('en-US')}>
+          <Button variant='outlined' onClick={() => switchLanguage('en')}>
             {t('switchToEnglish')}
           </Button>
-          <Button variant='outlined' onClick={() => switchLanguage('zh-CN')}>
+          <Button variant='outlined' onClick={() => switchLanguage('zh')}>
             {t('switchToChinese')}
           </Button>
         </TabPanel>
