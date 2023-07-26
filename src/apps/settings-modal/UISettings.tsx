@@ -83,7 +83,7 @@ export function UISettings() {
   return (
     <Stack direction="column" sx={{ gap: settingsGap }}>
       {!isPwa() && (
-        <FormControl orientation="horizontal" sx={{ ...hideOnMobile, alignItems: 'center', justifyContent: 'space-between' }}>
+        <FormControl sx={{ ...hideOnMobile, alignItems: 'center', justifyContent: 'space-between' }}>
           <Box>
             <FormLabel>{t('centering')}</FormLabel>
             <FormHelperText>
