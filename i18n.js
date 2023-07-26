@@ -4,10 +4,10 @@ import { initReactI18next } from "react-i18next";
 i18n.use(initReactI18next).init({
   resources: {
     en: {
-      translation: require('./en/translation.json'),
+      translation: require('../src/modules/llms/localai/en/translation.json'),
     },
     zh: {
-      translation: require('./zh/translation.json'),
+      translation: require('../src/modules/llms/localai/zh/translation.json'),
     },
   },
   lng: "en",
