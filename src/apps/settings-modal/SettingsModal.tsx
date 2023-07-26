@@ -10,7 +10,7 @@ import { useUIStateStore } from "~/common/state/store-ui";
 
 import { ToolsSettings } from "./ToolsSettings";
 import { UISettings } from "./UISettings";
-
+import i18n from 'i18n';
 // Import useTranslation hook
 import { useTranslation } from 'react-i18next';
 
