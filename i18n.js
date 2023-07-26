@@ -1,7 +1,3 @@
-// i18n.js
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-
 i18n
   .use(initReactI18next)
   .init({
@@ -29,8 +25,8 @@ i18n
         }
       }
     },
-    lng: "en", 
-    fallbackLng: "en",
+    lng: "zh", // 默认语言修改为中文（简体）
+    fallbackLng: "zh", // 如缺少其他语言的翻译内容，回退到中文（简体）
 
     interpolation: {
       escapeValue: false 
