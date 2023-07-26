@@ -12,55 +12,17 @@ import { hideOnMobile, settingsGap } from '~/common/theme';
 import { isPwa } from '~/common/util/pwaUtils';
 import { useUIPreferencesStore } from '~/common/state/store-ui';
 
-// languages is defined as a JSON file
+// 导入翻译钩子
+import { useTranslation } from 'react-i18next';
+
+// 导入语言配置
 import languages from './languages.json' assert { type: 'json' };
 
-// configuration
+// 配置
 const SHOW_PURPOSE_FINDER = false;
 
-
-function LanguageSelect() {
-  // external state
-  const { preferredLanguage, setPreferredLanguage } = useUIPreferencesStore(state => ({ preferredLanguage: state.preferredLanguage, setPreferredLanguage: state.setPreferredLanguage }), shallow);
-
-  const handleLanguageChanged = (event: any, newValue: string | null) => {
-    if (!newValue) return;
-    setPreferredLanguage(newValue as string);
-
-    // NOTE: disabled, to make sure the code can be adapted at runtime - will re-enable to trigger translations, if not dynamically switchable
-    //if (typeof window !== 'undefined')
-    //  window.location.reload();
-  };
-
-  const languageOptions = React.useMemo(() => Object.entries(languages).map(([language, localesOrCode]) =>
-    typeof localesOrCode === 'string'
-      ? (
-        <Option key={localesOrCode} value={localesOrCode}>
-          {language}
-        </Option>
-      ) : (
-        Object.entries(localesOrCode).map(([country, code]) => (
-          <Option key={code} value={code}>
-            {`${language} (${country})`}
-          </Option>
-        ))
-      )), []);
-
-  return (
-    <Select value={preferredLanguage} onChange={handleLanguageChanged}
-            indicator={<KeyboardArrowDownIcon />}
-            slotProps={{
-              root: { sx: { minWidth: 200 } },
-              indicator: { sx: { opacity: 0.5 } },
-            }}>
-      {languageOptions}
-    </Select>
-  );
-}
-
-
 export function UISettings() {
-  // external state
+  // 外部状态
   const {
     centerMode, setCenterMode,
     doubleClickToEdit, setDoubleClickToEdit,
@@ -78,6 +40,9 @@ export function UISettings() {
     showPurposeFinder: state.showPurposeFinder, setShowPurposeFinder: state.setShowPurposeFinder,
     zenMode: state.zenMode, setZenMode: state.setZenMode,
   }), shallow);
+
+  // 初始化翻译钩子
+  const { t } = useTranslation();
 
   const handleCenterModeChange = (event: React.ChangeEvent<HTMLInputElement>) => setCenterMode(event.target.value as 'narrow' | 'wide' | 'full' || 'wide');
 
@@ -99,20 +64,20 @@ export function UISettings() {
 
       {!isPwa() && <FormControl orientation='horizontal' sx={{ ...hideOnMobile, alignItems: 'center', justifyContent: 'space-between' }}>
         <Box>
-          <FormLabel>Centering</FormLabel>
-          <FormHelperText>{centerMode === 'full' ? 'Full screen chat' : centerMode === 'narrow' ? 'Narrow chat' : 'Wide'}</FormHelperText>
+          <FormLabel>{t('centering')}</FormLabel>
+          <FormHelperText>{centerMode === 'full' ? t('fullScreenChat') : centerMode === 'narrow' ? t('narrowChat') : t('wide')}</FormHelperText>
         </Box>
         <RadioGroup orientation='horizontal' value={centerMode} onChange={handleCenterModeChange}>
           <Radio value='narrow' label={<WidthNormalIcon sx={{ width: 25, height: 24, mt: -0.25 }} />} />
           <Radio value='wide' label={<WidthWideIcon sx={{ width: 25, height: 24, mt: -0.25 }} />} />
-          <Radio value='full' label='Full' />
+          <Radio value='full' label={t('full')} />
         </RadioGroup>
       </FormControl>}
 
       <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
         <Box>
-          <FormLabel>Enter to send</FormLabel>
-          <FormHelperText>{enterToSend ? <>Sends message<TelegramIcon /></> : 'New line'}</FormHelperText>
+          <FormLabel>{t('enterToSend')}</FormLabel>
+          <FormHelperText>{enterToSend ? <>Sends message<TelegramIcon /></> : t('newLine')}</FormHelperText>
         </Box>
         <Switch checked={enterToSend} onChange={handleEnterToSendChange}
                 endDecorator={enterToSend ? 'On' : 'Off'}
@@ -121,8 +86,8 @@ export function UISettings() {
 
       <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
         <Box>
-          <FormLabel>Double click to edit</FormLabel>
-          <FormHelperText>{doubleClickToEdit ? 'Double click' : 'Three dots'}</FormHelperText>
+          <FormLabel>{t('doubleClickToEdit')}</FormLabel>
+          <FormHelperText>{doubleClickToEdit ? t('doubleClick') : t('threeDots')}</FormHelperText>
         </Box>
         <Switch checked={doubleClickToEdit} onChange={handleDoubleClickToEditChange}
                 endDecorator={doubleClickToEdit ? 'On' : 'Off'}
@@ -131,8 +96,8 @@ export function UISettings() {
 
       <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
         <Box>
-          <FormLabel>Markdown</FormLabel>
-          <FormHelperText>{renderMarkdown ? 'Render markdown' : 'As text'}</FormHelperText>
+          <FormLabel>{t('markdown')}</FormLabel>
+          <FormHelperText>{renderMarkdown ? t('renderMarkdown') : t('asText')}</FormHelperText>
         </Box>
         <Switch checked={renderMarkdown} onChange={handleRenderMarkdownChange}
                 endDecorator={renderMarkdown ? 'On' : 'Off'}
@@ -141,8 +106,8 @@ export function UISettings() {
 
       {SHOW_PURPOSE_FINDER && <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
         <Box>
-          <FormLabel>Purpose finder</FormLabel>
-          <FormHelperText>{showPurposeFinder ? 'Show search bar' : 'Hide search bar'}</FormHelperText>
+          <FormLabel>{t('purposeFinder')}</FormLabel>
+          <FormHelperText>{showPurposeFinder ? t('showSearchBar') : t('hideSearchBar')}</FormHelperText>
         </Box>
         <Switch checked={showPurposeFinder} onChange={handleShowSearchBarChange}
                 endDecorator={showPurposeFinder ? 'On' : 'Off'}
@@ -151,13 +116,13 @@ export function UISettings() {
 
       <FormControl orientation='horizontal' sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
         <Box>
-          <FormLabel>Appearance</FormLabel>
-          <FormHelperText>{zenMode === 'clean' ? 'Show senders' : 'Minimal UI'}</FormHelperText>
+          <FormLabel>{t('appearance')}</FormLabel>
+          <FormHelperText>{zenMode === 'clean' ? t('showSenders') : t('minimalUI')}</FormHelperText>
         </Box>
         <RadioGroup orientation='horizontal' value={zenMode} onChange={handleZenModeChange}>
           {/*<Radio value='clean' label={<Face6Icon sx={{ width: 24, height: 24, mt: -0.25 }} />} />*/}
-          <Radio value='clean' label='Clean' />
-          <Radio value='cleaner' label='Zen' />
+          <Radio value='clean' label={t('clean')} />
+          <Radio value='cleaner' label={t('zen')} />
         </RadioGroup>
       </FormControl>
 
@@ -165,7 +130,7 @@ export function UISettings() {
         <Box>
           <Tooltip title='Currently for Microphone input and Voice output. Microphone support varies by browser (iPhone/Safari lacks speech input). We will use the ElevenLabs MultiLanguage model if a language other than English is selected.'>
             <FormLabel>
-              Audio language
+              {t('audioLanguage')}
             </FormLabel>
           </Tooltip>
           <FormHelperText>
@@ -177,8 +142,8 @@ export function UISettings() {
 
       <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
         <Box>
-          <FormLabel>Goofy labs</FormLabel>
-          <FormHelperText>{goofyLabs ? <>Experiment<ScienceIcon /></> : 'Disabled'}</FormHelperText>
+          <FormLabel>{t('goofyLabs')}</FormLabel>
+          <FormHelperText>{goofyLabs ? <>Experiment<ScienceIcon /></> : t('disabled')}</FormHelperText>
         </Box>
         <Switch checked={goofyLabs} onChange={handleGoofyLabsChange}
                 endDecorator={goofyLabs ? 'On' : 'Off'}
