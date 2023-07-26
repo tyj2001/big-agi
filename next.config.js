@@ -3,8 +3,8 @@
 let nextConfig = {
   reactStrictMode: true,
   i18n: {
-    locales: ['en-US', 'zh-CN'],
-    defaultLocale: 'en-US',
+    locales: ['en', 'zh'],
+    defaultLocale: 'en',
   },
   env: {
     // defaults to TRUE, unless API Keys are set at build time; this flag is used by the UI
