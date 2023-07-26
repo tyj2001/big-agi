@@ -7,22 +7,22 @@ import { hideOnMobile, settingsGap } from '~/common/theme';
 import { isPwa } from '~/common/util/pwaUtils';
 import { useUIPreferencesStore } from '~/common/state/store-ui';
 
-// 导入翻译钩子
+// Import translation hook
 import { useTranslation } from 'react-i18next';
 
-// 导入语言配置
+// Import language configuration
 import languages from './languages.json';
 
-// 配置
+// Config
 const SHOW_PURPOSE_FINDER = false;
 
 function LanguageSelect() {
-  // 这里是你的LanguageSelect组件的代码
-  return <div>LanguageSelect组件的内容</div>;
+  // Here is your LanguageSelect component code
+  return <div>LanguageSelect component content</div>;
 }
 
 export function UISettings() {
-  // 外部状态
+  // External state
   const {
     centerMode,
     setCenterMode,
@@ -58,7 +58,7 @@ export function UISettings() {
     shallow
   );
 
-  // 初始化翻译钩子
+  // Initialize translation hook
   const { t } = useTranslation();
 
   const handleCenterModeChange = (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -121,89 +121,88 @@ export function UISettings() {
       <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
         <Box>
           <FormLabel>{t('doubleClickToEdit')}</FormLabel>
-<FormHelperText>
+          <FormHelperText>
             {doubleClickToEdit ? (
               t('doubleClick')
             ) : (
               t('threeDots')
             )}
-          </FormHelperText>
-        </Box>
-        <Switch checked={doubleClickToEdit} onChange={handleDoubleClickToEditChange} />
-      </FormControl>
+             </FormHelperText>
+    </Box>
+    <Switch checked={doubleClickToEdit} onChange={handleDoubleClickToEditChange} />
+  </FormControl>
 
-      <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
-        <Box>
-          <FormLabel>{t('markdown')}</FormLabel>
-          <FormHelperText>
-            {renderMarkdown ? (
-              t('renderMarkdown')
-            ) : (
-              t('asText')
-            )}
-          </FormHelperText>
-        </Box>
-        <Switch checked={renderMarkdown} onChange={handleRenderMarkdownChange} />
-      </FormControl>
+  <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
+    <Box>
+      <FormLabel>{t('markdown')}</FormLabel>
+      <FormHelperText>
+        {renderMarkdown ? (
+          t('renderMarkdown')
+        ) : (
+          t('asText')
+        )}
+      </FormHelperText>
+    </Box>
+    <Switch checked={renderMarkdown} onChange={handleRenderMarkdownChange} />
+  </FormControl>
 
-      {SHOW_PURPOSE_FINDER && (
-        <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
-          <Box>
-            <FormLabel>{t('purposeFinder')}</FormLabel>
-            <FormHelperText>
-              {showPurposeFinder ? (
-                t('showSearchBar')
-              ) : (
-                t('hideSearchBar')
-              )}
-            </FormHelperText>
-          </Box>
-          <Switch checked={showPurposeFinder} onChange={handleShowSearchBarChange} />
-        </FormControl>
-      )}
+  {SHOW_PURPOSE_FINDER && (
+    <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
+      <Box>
+        <FormLabel>{t('purposeFinder')}</FormLabel>
+        <FormHelperText>
+          {showPurposeFinder ? (
+            t('showSearchBar')
+          ) : (
+            t('hideSearchBar')
+          )}
+        </FormHelperText>
+      </Box>
+      <Switch checked={showPurposeFinder} onChange={handleShowSearchBarChange} />
+    </FormControl>
+  )}
 
-      <FormControl orientation="horizontal" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-        <Box>
-          <FormLabel>{t('appearance')}</FormLabel>
-          <FormHelperText>
-            {zenMode === 'clean' ? (
-              t('showSenders')
-            ) : (
-              t('minimalUI')
-            )}
-          </FormHelperText>
-        </Box>
-        <RadioGroup orientation="horizontal" value={zenMode} onChange={handleZenModeChange}>
-          <Radio value="clean" label={t('clean')} />
-          <Radio value="cleaner" label={t('zen')} />
-        </RadioGroup>
-      </FormControl>
+  <FormControl orientation="horizontal" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box>
+      <FormLabel>{t('appearance')}</FormLabel>
+      <FormHelperText>
+        {zenMode === 'clean' ? (
+          t('showSenders')
+        ) : (
+          t('minimalUI')
+        )}
+      </FormHelperText>
+    </Box>
+    <RadioGroup orientation="horizontal" value={zenMode} onChange={handleZenModeChange}>
+      <Radio value="clean" label={t('clean')} />
+      <Radio value="cleaner" label={t('zen')} />
+    </RadioGroup>
+  </FormControl>
 
-      <FormControl orientation="horizontal" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-        <Box>
-          <FormLabel>{t('audioLanguage')}</FormLabel>
-          <FormHelperText>
-            ASR 🎙️ &amp; TTS 📢
-          </FormHelperText>
-        </Box>
-        <LanguageSelect />
-      </FormControl>
+  <FormControl orientation="horizontal" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box>
+      <FormLabel>{t('audioLanguage')}</FormLabel>
+      <FormHelperText>
+        ASR 🎙️ &amp; TTS 📢
+      </FormHelperText>
+    </Box>
+    <LanguageSelect />
+  </FormControl>
 
-      <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
-        <Box>
-          <FormLabel>{t('goofyLabs')}</FormLabel>
-          <FormHelperText>
-            {goofyLabs ? (
-              <>
-                {t('experiment')}
-              </>
-            ) : (
-              t('disabled')
-            )}
-          </FormHelperText>
-        </Box>
-        <Switch checked={goofyLabs} onChange={handleGoofyLabsChange} />
-      </FormControl>
-    </Stack>
-  );
-}
+  <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
+    <Box>
+      <FormLabel>{t('goofyLabs')}</FormLabel>
+      <FormHelperText>
+        {goofyLabs ? (
+          <>
+            {t('experiment')}
+          </>
+        ) : (
+          t('disabled')
+        )}
+      </FormHelperText>
+    </Box>
+    <Switch checked={goofyLabs} onChange={handleGoofyLabsChange} />
+  </FormControl>
+</Stack>
+）；}
