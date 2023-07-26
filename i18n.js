@@ -25,8 +25,8 @@ i18n
         }
       }
     },
-    lng: "zh", // 默认语言修改为中文（简体）
-    fallbackLng: "zh", // 如缺少其他语言的翻译内容，回退到中文（简体）
+    lng: "en", // 默认语言修改为中文（简体）
+    fallbackLng: "en", // 如缺少其他语言的翻译内容，回退到中文（简体）
 
     interpolation: {
       escapeValue: false 
