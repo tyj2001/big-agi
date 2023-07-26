@@ -51,9 +51,10 @@ export function UISettings() {
 
   const { t } = useTranslation();
 
-  const handleCenterModeChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-  setCenterMode((event.target.value as ('narrow' | 'wide' | 'full')) || 'wide');
-
+  const handleCenterModeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const value = event.target.value as 'narrow' | 'wide' | 'full';
+  setCenterMode(value || 'wide');
+};
   const handleEnterToSendChange = (event: React.ChangeEvent<HTMLInputElement>) => setEnterToSend(event.target.checked);
 
   const handleDoubleClickToEditChange = (event: React.ChangeEvent<HTMLInputElement>) =>
