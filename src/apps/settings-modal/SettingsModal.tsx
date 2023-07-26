@@ -1,86 +1,209 @@
-import * as React from "react";
-import { useRouter } from "next/router";
-import { Button, Divider, Tab, TabList, TabPanel, Tabs } from "@mui/joy";
-import BuildCircleIcon from "@mui/icons-material/BuildCircle";
-import { ElevenlabsSettings } from "~/modules/elevenlabs/ElevenlabsSettings";
-import { ProdiaSettings } from "~/modules/prodia/ProdiaSettings";
+import * as React from 'react';
+import { shallow } from 'zustand/shallow';
 
-import { GoodModal } from "~/common/components/GoodModal";
-import { useUIStateStore } from "~/common/state/store-ui";
+import { Box, FormControl, FormHelperText, FormLabel, Radio, RadioGroup, Stack, Switch } from '@mui/material';
 
-import { ToolsSettings } from "./ToolsSettings";
-import { UISettings } from "./UISettings";
-import i18n from 'i18n';
-// Import useTranslation hook
+import { hideOnMobile, settingsGap } from '~/common/theme';
+import { isPwa } from '~/common/util/pwaUtils';
+import { useUIPreferencesStore } from '~/common/state/store-ui';
+
+// Import translation hook
 import { useTranslation } from 'react-i18next';
 
-export function SettingsModal() {
-  const router = useRouter();
-  const { settingsOpenTab, closeSettings, openModelsSetup } = useUIStateStore();
+// Import language configuration
+import languages from './languages.json';
 
-  // Initialize the hook
-  const { t, i18n } = useTranslation();
+// Config
+const SHOW_PURPOSE_FINDER = false;
 
-  const switchLanguage = (lng: string) => {
-    router.push(router.pathname, router.asPath, { locale: lng });
-    i18n.changeLanguage(lng); // This line changes the language in react-i18next as well
-  };
+function LanguageSelect() {
+  // Here is your LanguageSelect component code
+  return <div>LanguageSelect component content</div>;
+}
+
+export function UISettings() {
+  // External state
+  const {
+    centerMode,
+    setCenterMode,
+    doubleClickToEdit,
+    setDoubleClickToEdit,
+    enterToSend,
+    setEnterToSend,
+    goofyLabs,
+    setGoofyLabs,
+    renderMarkdown,
+    setRenderMarkdown,
+    showPurposeFinder,
+    setShowPurposeFinder,
+    zenMode,
+    setZenMode
+  } = useUIPreferencesStore(
+    (state) => ({
+      centerMode: state.centerMode,
+      setCenterMode: state.setCenterMode,
+      doubleClickToEdit: state.doubleClickToEdit,
+      setDoubleClickToEdit: state.setDoubleClickToEdit,
+      enterToSend: state.enterToSend,
+      setEnterToSend: state.setEnterToSend,
+      goofyLabs: state.goofyLabs,
+      setGoofyLabs: state.setGoofyLabs,
+      renderMarkdown: state.renderMarkdown,
+      setRenderMarkdown: state.setRenderMarkdown,
+      showPurposeFinder: state.showPurposeFinder,
+      setShowPurposeFinder: state.setShowPurposeFinder,
+      zenMode: state.zenMode,
+      setZenMode: state.setZenMode
+    }),
+    shallow
+  );
+
+  // Initialize translation hook
+  const { t } = useTranslation();
+
+  const handleCenterModeChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setCenterMode(event.target.value as 'narrow' | 'wide' | 'full' || 'wide');
+
+  const handleEnterToSendChange = (event: React.ChangeEvent<HTMLInputElement>) => setEnterToSend(event.target.checked);
+
+  const handleDoubleClickToEditChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setDoubleClickToEdit(event.target.checked);
+
+  const handleZenModeChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setZenMode(event.target.value as 'clean' | 'cleaner');
+
+  const handleRenderMarkdownChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setRenderMarkdown(event.target.checked);
+
+  const handleGoofyLabsChange = (event: React.ChangeEvent<HTMLInputElement>) => setGoofyLabs(event.target.checked);
+
+  const handleShowSearchBarChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setShowPurposeFinder(event.target.checked);
 
   return (
-    <GoodModal
-      title={t('preferences')} 
-      open={!!settingsOpenTab}
-      onClose={closeSettings}
-      startButton={
-        <Button variant='plain' color='info' onClick={openModelsSetup} startDecorator={<BuildCircleIcon />}>
-          {t('models')} 
-        </Button>
-      }
-      sx={{ p: { xs: 1, sm: 2, lg: 2.5 } }}
-    >
-      <Tabs
-        aria-label='设置选项卡菜单'
-        defaultValue={settingsOpenTab}
-        sx={{ borderRadius: 'lg' }}
-      >
-        <TabList
-          variant='soft'
-          color='neutral'
-          sx={{ mb: 2 /* gap: 3, minus 0.5 for the Tabs-gap, minus 0.5 for perception */ }}
-        >
-          <Tab value={1}>{t('interface')}</Tab>
-          <Tab value={2}>{t('drawing')}</Tab>
-          <Tab value={3}>{t('voice')}</Tab>
-          <Tab value={4}>{t('tools')}</Tab>
-          <Tab value={5}>{t('language')}</Tab>
-        </TabList>
+    <Stack direction="column" sx={{ gap: settingsGap }}>
+      {!isPwa() && (
+        <FormControl sx={{ ...hideOnMobile, alignItems: 'center', justifyContent: 'space-between' }}>
+          <Box>
+            <FormLabel>{t('centering')}</FormLabel>
+            <FormHelperText>
+              {centerMode === 'full'
+                ? t('fullScreenChat')
+                : centerMode === 'narrow'
+                ? t('narrowChat')
+                : t('wide')}
+            </FormHelperText>
+          </Box>
+          <RadioGroup row value={centerMode} onChange={handleCenterModeChange}>
+            <Radio value="narrow" />
+            <Radio value="wide" />
+            <Radio value="full" label={t('full')} />
+          </RadioGroup>
+        </FormControl>
+      )}
 
-        <TabPanel value={1} sx={{ p: 'var(--Tabs-gap)' }}>
-          <UISettings />
-        </TabPanel>
+      <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
+        <Box>
+          <FormLabel>{t('enterToSend')}</FormLabel>
+          <FormHelperText>
+            {enterToSend ? (
+              <>
+                {t('sendsMessage')}
+              </>
+            ) : (
+              t('newLine')
+            )}
+          </FormHelperText>
+        </Box>
+        <Switch checked={enterToSend} onChange={handleEnterToSendChange} />
+      </FormControl>
 
-        <TabPanel value={2} sx={{ p: 'var(--Tabs-gap)' }}>
-          <ProdiaSettings />
-        </TabPanel>
+      <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
+        <Box>
+          <FormLabel>{t('doubleClickToEdit')}</FormLabel>
+          <FormHelperText>
+            {doubleClickToEdit ? (
+              t('doubleClick')
+            ) : (
+              t('threeDots')
+            )}
+              </FormHelperText>
+    </Box>
+    <Switch checked={doubleClickToEdit} onChange={handleDoubleClickToEditChange} />
+  </FormControl>
 
-        <TabPanel value={3} sx={{ p: 'var(--Tabs-gap)' }}>
-          <ElevenlabsSettings />
-        </TabPanel>
+  <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
+    <Box>
+      <FormLabel>{t('markdown')}</FormLabel>
+      <FormHelperText>
+        {renderMarkdown ? (
+          t('renderMarkdown')
+        ) : (
+          t('asText')
+        )}
+      </FormHelperText>
+    </Box>
+    <Switch checked={renderMarkdown} onChange={handleRenderMarkdownChange} />
+  </FormControl>
 
-        <TabPanel value={4} sx={{ p: 'var(--Tabs-gap)' }}>
-          <ToolsSettings />
-        </TabPanel>
+  {SHOW_PURPOSE_FINDER && (
+    <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
+      <Box>
+        <FormLabel>{t('purposeFinder')}</FormLabel>
+        <FormHelperText>
+          {showPurposeFinder ? (
+            t('showSearchBar')
+          ) : (
+            t('hideSearchBar')
+          )}
+        </FormHelperText>
+      </Box>
+      <Switch checked={showPurposeFinder} onChange={handleShowSearchBarChange} />
+    </FormControl>
+  )}
 
-        <TabPanel value={5} sx={{ p: 'var(--Tabs-gap)' }}>
-          <Button variant='outlined' onClick={() => switchLanguage('en')}>
-            {t('switchToEnglish')}
-          </Button>
-          <Button variant='outlined' onClick={() => switchLanguage('zh')}>
-            {t('switchToChinese')}
-          </Button>
-        </TabPanel>
-      </Tabs>
-      <Divider />
-    </GoodModal>
-  );
-}
+  <FormControl orientation="horizontal" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box>
+      <FormLabel>{t('appearance')}</FormLabel>
+      <FormHelperText>
+        {zenMode === 'clean' ? (
+          t('showSenders')
+        ) : (
+          t('minimalUI')
+        )}
+      </FormHelperText>
+    </Box>
+    <RadioGroup orientation="horizontal" value={zenMode} onChange={handleZenModeChange}>
+      <Radio value="clean" label={t('clean')} />
+      <Radio value="cleaner" label={t('zen')} />
+    </RadioGroup>
+  </FormControl>
+
+  <FormControl orientation="horizontal" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box>
+      <FormLabel>{t('audioLanguage')}</FormLabel>
+      <FormHelperText>
+        ASR 🎙️ &amp; TTS 📢
+      </FormHelperText>
+    </Box>
+    <LanguageSelect />
+  </FormControl>
+
+  <FormControl orientation="horizontal" sx={{ justifyContent: 'space-between' }}>
+    <Box>
+      <FormLabel>{t('goofyLabs')}</FormLabel>
+      <FormHelperText>
+        {goofyLabs ? (
+          <>
+            {t('experiment')}
+          </>
+        ) : (
+          t('disabled')
+        )}
+      </FormHelperText>
+    </Box>
+    <Switch checked={goofyLabs} onChange={handleGoofyLabsChange} />
+  </FormControl>
+</Stack>
+）；}
+          
