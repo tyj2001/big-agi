@@ -1,4 +1,3 @@
-// SettingsModal.js
 import * as React from "react";
 import { useRouter } from "next/router";
 import { Button, Divider, Tab, TabList, TabPanel, Tabs } from "@mui/joy";
@@ -22,9 +21,9 @@ export function SettingsModal() {
   // Initialize the hook
   const { t, i18n } = useTranslation();
 
-  const switchLanguage = (locale: string) => {
-    router.push(router.pathname, router.asPath, { locale });
-    i18n.changeLanguage(locale); // This line changes the language in react-i18next as well
+  const switchLanguage = (lng: string) => {
+    router.push(router.pathname, router.asPath, { locale: lng });
+    i18n.changeLanguage(lng); // This line changes the language in react-i18next as well
   };
 
   return (
