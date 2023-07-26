@@ -94,7 +94,7 @@ export function UISettings() {
                 : t('wide')}
             </FormHelperText>
           </Box>
-          <RadioGroup orientation="horizontal" value={centerMode} onChange={handleCenterModeChange}>
+          <RadioGroup row value={centerMode} onChange={handleCenterModeChange}>
             <Radio value="narrow" />
             <Radio value="wide" />
             <Radio value="full" label={t('full')} />
