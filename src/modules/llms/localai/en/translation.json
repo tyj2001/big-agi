@@ -8,6 +8,7 @@
   "language": "Language",
   "switchToEnglish": "Switch to English",
   "switchToChinese": "Switch to Chinese",
+  
   "Full": "Full",
   "Centering": "Centering",
   "Full screen chat": "Full screen chat",
@@ -36,6 +37,7 @@
   "Disabled": "Disabled",
   "On": "On",
   "Off": "Off",
+  
   "ASR 🎙️ &amp; TTS 📢": "ASR 🎙️ &amp; TTS 📢",
    "🛠️ Tools enable additional capabilities if enabled and correctly configured": "🛠️ Tools enable additional capabilities if enabled and correctly configured",
   "🎨 Turn text into pictures and /imagine anything": "🎨 Turn text into pictures and /imagine anything",
@@ -75,5 +77,8 @@
   "Cleanup ...": "Cleanup ...",
   "Share on paste.gg": "Share on paste.gg",
   "Export conversation": "Export conversation",
-  "Reset": "Reset"
+  "Reset": "Reset",
+  
+  "Preferences": "Preferences"
+  
 }
