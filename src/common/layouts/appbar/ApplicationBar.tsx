@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'zustand/shallow';
+import { useTranslation } from 'react-i18next';
 
 import { Badge, Box, IconButton, ListDivider, ListItemDecorator, Menu, MenuItem, Sheet, Typography, useColorScheme } from '@mui/joy';
 import { SxProps } from '@mui/joy/styles/types';
@@ -40,6 +41,8 @@ function AppBarTitle() {
 
 
 function CommonContextItems(props: { onClose: () => void }) {
+  // 使用 useTranslation 钩子函数
+  const { t } = useTranslation();
   // external state
   const { mode: colorMode, setMode: setColorMode } = useColorScheme();
   // const { goofyLabs, setGoofyLabs } = useUIPreferencesStore(state => ({
@@ -71,10 +74,11 @@ function CommonContextItems(props: { onClose: () => void }) {
     {/*  <Switch checked={colorMode === 'dark'} onChange={handleToggleDarkMode} sx={{ ml: 'auto' }} />*/}
     {/*</MenuItem>*/}
 
+    {/* 使用 t 函数进行翻译 */}
     {/* Preferences |...| Dark Mode Toggle */}
     <MenuItem onClick={handleShowSettings}>
       <ListItemDecorator><SettingsOutlinedIcon /></ListItemDecorator>
-      Preferences
+      {t('Preferences')}
       <IconButton
         variant='outlined' color='neutral'
         onClick={handleToggleDarkMode}
@@ -98,6 +102,8 @@ function CommonContextItems(props: { onClose: () => void }) {
  * The top bar of the application, with the model and purpose selection, and menu/settings icons
  */
 export function ApplicationBar(props: { sx?: SxProps }) {
+  // 使用 useTranslation 钩子函数
+  const { t } = useTranslation();
 
   // external state
   const {
