@@ -9,7 +9,8 @@ import { useModelsStore } from '~/modules/llms/store-llms';
 import { InlineTextarea } from '~/common/components/InlineTextarea';
 import { createDMessage, DConversation, useChatStore } from '~/common/state/store-chats';
 
-import { FLATTEN_PROFILES, FlattenStyleType } from './flatten.data';
+// import { FLATTEN_PROFILES, FlattenStyleType } from './flatten.data'; // 删除这行
+import { useFlattenProfiles, FlattenStyleType } from './flatten.data'; // 添加这行
 import { flattenConversation } from './flatten';
 
 
