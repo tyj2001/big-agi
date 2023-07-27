@@ -16,6 +16,7 @@ import { settingsGap } from '~/common/theme';
 import { isValidProdiaApiKey, requireUserKeyProdia } from './prodia.client';
 import { prodiaDefaultModelId } from './prodia.models';
 import { useProdiaStore } from './store-prodia';
+import { t } from '../path/to/translation';
 
 export function ProdiaSettings() {
   // external state
