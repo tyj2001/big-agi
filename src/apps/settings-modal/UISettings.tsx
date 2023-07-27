@@ -177,7 +177,7 @@ export function UISettings() {
       <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
         <Box>
           <FormLabel>{t('Goofy labs')}</FormLabel>
-          <FormHelperText>{goofyLabs ? <>Experiment<ScienceIcon /></> : t('Disabled')}</FormHelperText>
+          <FormHelperText>{goofyLabs ? <>t('Experiment')<ScienceIcon /></> : t('Disabled')}</FormHelperText>
         </Box>
         <Switch checked={goofyLabs} onChange={handleGoofyLabsChange}
                 endDecorator={goofyLabs ? t('On') : t('Off')}
