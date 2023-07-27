@@ -1,3 +1,6 @@
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
+
 export type FlattenStyleType = 'brief' | 'deep' | 'exploration' | 'action';
 
 interface FlattenProfile {
@@ -11,37 +14,39 @@ interface FlattenProfile {
 
 const systemPromptSuffix = 'Ensure the summary is impersonal and easy to read, write clear and separated paragraphs and use bullet points when possible.';
 
+const { t } = useTranslation();
+
 export const FLATTEN_PROFILES: FlattenProfile[] = [
   {
     type: 'brief',
-    name: 'Brief',
-    description: 'Concise overview with main points and actions',
+    name: t('briefName'),
+    description: t('briefDescription'),
     emoji: '⚡',
-    systemPrompt: 'Create a brief and concise summary of the given conversation thread, focusing on the most important points, recent developments, and key actionable insights. Maintain enough context for future reference and exclude any references to the user or the assistant. ' + systemPromptSuffix,
-    userPrompt: 'Please create a brief and concise summary for the conversation below, focusing on the most important points, recent developments, and key actionable insights, while maintaining enough context for future reference:',
+    systemPrompt: t('briefSystemPrompt'),
+    userPrompt: t('briefUserPrompt'),
   },
   {
     type: 'deep',
-    name: 'Detailed',
-    description: 'Detailed summary with synthesized ideas',
+    name: t('detailedName'),
+    description: t('detailedDescription'),
     emoji: '🔎',
-    systemPrompt: 'Provide a comprehensive and detailed summary of the given conversation thread, capturing context and background, all recent and relevant points, preserving context, and synthesizing related ideas. Highlight actionable insights and stakeholder considerations, while excluding references to the user or the assistant. ' + systemPromptSuffix,
-    userPrompt: 'Please provide a detailed summary of the conversation below, capturing context and background, all recent and relevant points, preserving context, synthesizing related ideas, highlighting actionable insights, and including any stakeholder considerations:',
+    systemPrompt: t('detailedSystemPrompt'),
+    userPrompt: t('detailedUserPrompt'),
   },
   {
     type: 'exploration',
-    name: 'Open-ended',
-    description: 'Open-ended summary for further discussion',
+    name: t('openEndedName'),
+    description: t('openEndedDescription'),
     emoji: '🌱',
-    systemPrompt: 'Summarize the given conversation thread in a way that invites further exploration, encourages the addition of new perspectives, and identifies knowledge gaps or unanswered questions. Foster continued discussion on the topic while excluding references to the user or the assistant. ' + systemPromptSuffix,
-    userPrompt: 'Please summarize the conversation below in a way that invites further exploration, encourages the addition of new perspectives, identifies knowledge gaps or unanswered questions, and fosters continued discussion on the topic:',
+    systemPrompt: t('openEndedSystemPrompt'),
+    userPrompt: t('openEndedUserPrompt'),
   },
   {
     type: 'action',
-    name: 'Actionable',
-    description: 'Summary with decisions, actions, and context',
+    name: t('actionableName'),
+    description: t('actionableDescription'),
     emoji: '📌',
-    systemPrompt: 'Generate a summary of the given conversation thread that emphasizes decisions made, agreed-upon next steps, and action items from the discussion. Capture the context, key points, and any potential challenges or opportunities, while excluding references to the user or the assistant. ' + systemPromptSuffix,
-    userPrompt: 'Please generate a summary of the conversation below that emphasizes decisions made, agreed-upon next steps, and action items from the discussion, while also capturing the context, key points, and any potential challenges or opportunities:',
+    systemPrompt: t('actionableSystemPrompt'),
+    userPrompt: t('actionableUserPrompt'),
   },
 ];
