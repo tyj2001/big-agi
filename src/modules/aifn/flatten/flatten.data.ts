@@ -12,8 +12,7 @@ interface FlattenProfile {
   userPrompt: string;
 }
 
-const systemPromptSuffix = 'Ensure the summary is impersonal and easy to read, write clear and separated paragraphs and use bullet points when possible.';
-
+const items = FLATTEN_PROFILES().filter(style => !readonly || style.type === props.selectedStyle);
 export const FLATTEN_PROFILES = () => {
   const { t } = useTranslation();
 
