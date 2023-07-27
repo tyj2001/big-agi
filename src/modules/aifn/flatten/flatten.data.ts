@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 export type FlattenStyleType = 'brief' | 'deep' | 'exploration' | 'action';
 
 interface FlattenProfile {
