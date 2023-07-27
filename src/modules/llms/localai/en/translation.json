@@ -68,4 +68,12 @@
   "Off": "Off",
   "Noise Seed": "Noise Seed",
   "Random": "Random"
+  "Conversation": "Conversation",
+  "System message": "System message",
+  "Duplicate": "Duplicate",
+  "Flatten": "Flatten",
+  "Cleanup ...": "Cleanup ...",
+  "Share on paste.gg": "Share on paste.gg",
+  "Export conversation": "Export conversation",
+  "Reset": "Reset"
 }
