@@ -67,5 +67,13 @@
   "1024px": "1024像素",
   "Off": "关闭",
   "Noise Seed": "噪音种子",
-  "Random": "随机"
+  "Random": "随机",
+  "Conversation": "对话",
+  "System message": "系统消息",
+  "Duplicate": "复制",
+  "Flatten": "展平",
+  "Cleanup ...": "清理...",
+  "Share on paste.gg": "在 paste.gg 上分享",
+  "Export conversation": "导出对话",
+  "Reset": "重置"
 }
