@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { shallow } from 'zustand/shallow';
 
 import { Alert, Box, CircularProgress, FormControl, FormHelperText, FormLabel, Input, Option, Radio, RadioGroup, Select, Slider, Stack, Switch, Tooltip, Typography } from '@mui/joy';
@@ -17,17 +18,21 @@ import { isValidProdiaApiKey, requireUserKeyProdia } from './prodia.client';
 import { prodiaDefaultModelId } from './prodia.models';
 import { useProdiaStore } from './store-prodia';
 
+
 export function ProdiaSettings() {
+  // 使用 useTranslation 钩子函数
+  const { t } = useTranslation();
+
   // external state
-  const { apiKey, setApiKey, modelId, setModelId, negativePrompt, setNegativePrompt, steps, setSteps, cfgScale, setCfgScale, prodiaAspectRatio, upscale, setUpscale, seed, setSeed } = useProdiaStore(state => ({
+  const { apiKey, setApiKey, modelId, setModelId, negativePrompt, setNegativePrompt, steps, setSteps, cfgScale, setCfgScale, prodiaAspectRatio, setProdiaAspectRatio, upscale, setUpscale, seed, setSeed } = useProdiaStore(state => ({
     apiKey: state.prodiaApiKey, setApiKey: state.setProdiaApiKey,
     modelId: state.prodiaModelId, setModelId: state.setProdiaModelId,
     negativePrompt: state.prodiaNegativePrompt, setNegativePrompt: state.setProdiaNegativePrompt,
     steps: state.prodiaSteps, setSteps: state.setProdiaSteps,
     cfgScale: state.prodiaCfgScale, setCfgScale: state.setProdiaCfgScale,
     prodiaAspectRatio: state.prodiaAspectRatio, setProdiaAspectRatio: state.setProdiaAspectRatio,
-    upscale: state.prodiaUpscale, setUpscale: state.prodiaUpscale,
-    seed: state.prodiaSeed, setSeed: state.prodiaSeed,
+    upscale: state.prodiaUpscale, setUpscale: state.setProdiaUpscale,
+    seed: state.prodiaSeed, setSeed: state.setProdiaSeed,
   }), shallow);
 
   const requiresKey = requireUserKeyProdia;
@@ -57,7 +62,7 @@ export function ProdiaSettings() {
         required={requiresKey} isError={!isValidKey}
       />
 
-      {isError && <Alert variant='soft' color='warning' sx={{ mt: 1 }}><Typography>{t('Issue: {error?.message || error?.toString() || "unknown"}', { error })}</Typography></Alert>}
+      {isError && <Alert variant='soft' color='warning' sx={{ mt: 1 }}><Typography>{t('Issue')}: {error?.message || error?.toString() || t('unknown')}</Typography></Alert>}
 
       <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
         <FormLabel sx={{ minWidth: colWidth }}>
@@ -95,7 +100,7 @@ export function ProdiaSettings() {
         </Box>
         <Input
           aria-label={t('Image Generation Negative Prompt')}
-          variant='outlined' placeholder='ugly, blurry, ...'
+          variant='outlined' placeholder={t('ugly, blurry, ...')}
           value={negativePrompt} onChange={(e) => setNegativePrompt(e.target.value)}
           slotProps={{ input: { sx: { width: '100%' } } }}
           sx={{ width: '100%' }}
@@ -162,7 +167,7 @@ export function ProdiaSettings() {
             {t('Upscale')} <InfoOutlinedIcon sx={{ mx: 0.5 }} />
           </FormLabel>
           <FormHelperText>
-            {upscale ? t('1024px') : t('Default')}
+           {upscale ? t('1024px') : t('Default')}
           </FormHelperText>
         </Box>
         <Switch checked={upscale} onChange={(e) => setUpscale(e.target.checked)}
