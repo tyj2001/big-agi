@@ -16,11 +16,10 @@ import { settingsGap } from '~/common/theme';
 import { isValidProdiaApiKey, requireUserKeyProdia } from './prodia.client';
 import { prodiaDefaultModelId } from './prodia.models';
 import { useProdiaStore } from './store-prodia';
-import { t } from '../path/to/translation';
 
 export function ProdiaSettings() {
   // external state
-  const { apiKey, setApiKey, modelId, setModelId, negativePrompt, setNegativePrompt, steps, setSteps, cfgScale, setCfgScale, prodiaAspectRatio, setProdiaAspectRatio, upscale, setUpscale, seed, setSeed } = useProdiaStore(state => ({
+  const { apiKey, setApiKey, modelId, setModelId, negativePrompt, setNegativePrompt, steps, setSteps, cfgScale, setCfgScale, prodiaAspectRatio, upscale, setUpscale, seed, setSeed } = useProdiaStore(state => ({
     apiKey: state.prodiaApiKey, setApiKey: state.setProdiaApiKey,
     modelId: state.prodiaModelId, setModelId: state.setProdiaModelId,
     negativePrompt: state.prodiaNegativePrompt, setNegativePrompt: state.setProdiaNegativePrompt,
@@ -46,18 +45,19 @@ export function ProdiaSettings() {
 
   return (
     <Stack direction='column' sx={{ gap: settingsGap }}>
+
       <FormHelperText>
-        {t('🎨Turn text into pictures and /imagine anything')}
+        {t('🎨 Turn text into pictures and /imagine anything')}
       </FormHelperText>
 
       <FormInputKey
         label={t('Prodia API Key')}
-        rightLabel={requiresKey ? t('required') : t('✔️already set in server')}
+        rightLabel={requiresKey ? t('required') : t('✔️ already set in server')}
         value={apiKey} onChange={setApiKey}
         required={requiresKey} isError={!isValidKey}
       />
 
-      {isError && <Alert variant='soft' color='warning' sx={{ mt: 1 }}><Typography>{t('Issue: {errorMessage}', { errorMessage: error?.message || error?.toString() || 'unknown' })}</Typography></Alert>}
+      {isError && <Alert variant='soft' color='warning' sx={{ mt: 1 }}><Typography>{t('Issue: {error?.message || error?.toString() || "unknown"}', { error })}</Typography></Alert>}
 
       <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
         <FormLabel sx={{ minWidth: colWidth }}>
@@ -90,12 +90,12 @@ export function ProdiaSettings() {
             </FormLabel>
           </Tooltip>
           <FormHelperText>
-            {negativePrompt ? t('Custom') : t('Not set')} 
+            {negativePrompt ? t('Custom') : t('Not set')}
           </FormHelperText>
         </Box>
         <Input
           aria-label={t('Image Generation Negative Prompt')}
-          variant='outlined' placeholder={t('ugly, blurry, ...')}
+          variant='outlined' placeholder='ugly, blurry, ...'
           value={negativePrompt} onChange={(e) => setNegativePrompt(e.target.value)}
           slotProps={{ input: { sx: { width: '100%' } } }}
           sx={{ width: '100%' }}
@@ -166,7 +166,7 @@ export function ProdiaSettings() {
           </FormHelperText>
         </Box>
         <Switch checked={upscale} onChange={(e) => setUpscale(e.target.checked)}
-                endDecorator={upscale ? '2x' : 'Off'}
+                endDecorator={upscale ? '2x' : t('Off')}
                 slotProps={{ endDecorator: { sx: { minWidth: 26 } } }} />
       </FormControl>
 
@@ -194,6 +194,7 @@ export function ProdiaSettings() {
           sx={{ width: '100%' }}
         />
       </FormControl>
+
     </Stack>
   );
 }
