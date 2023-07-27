@@ -111,7 +111,7 @@ export function UISettings() {
       <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
         <Box>
           <FormLabel>{t('Enter to send')}</FormLabel>
-          <FormHelperText>{enterToSend ? <>Sends message<TelegramIcon /></> : t('New line')}</FormHelperText>
+          <FormHelperText>{enterToSend ? <>{t('sends_message')}<TelegramIcon /></> : t('new_line')}</FormHelperText>
         </Box>
         <Switch checked={enterToSend} onChange={handleEnterToSendChange}
                 endDecorator={enterToSend ? t('On') : t('Off')}
