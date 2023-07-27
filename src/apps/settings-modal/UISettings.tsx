@@ -168,7 +168,7 @@ export function UISettings() {
             </FormLabel>
           </Tooltip>
           <FormHelperText>
-            ASR 🎙️ &amp; TTS 📢
+            {t('ASR 🎙️ & TTS 📢')}
           </FormHelperText>
         </Box>
         <LanguageSelect />
