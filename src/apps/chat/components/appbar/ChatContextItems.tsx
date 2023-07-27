@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'zustand/shallow';
+import { useTranslation } from 'react-i18next';
 
 import { ListDivider, ListItem, ListItemDecorator, MenuItem, Switch, Typography } from '@mui/joy';
 import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
@@ -26,6 +27,9 @@ export function ChatContextItems(props: {
   onFlattenConversation: (conversationId: string) => void,
   onPublishConversation: (conversationId: string) => void
 }) {
+
+  // 使用 useTranslation 钩子函数
+  const { t } = useTranslation();
 
   // external state
   const { showSystemMessages, setShowSystemMessages } = useUIPreferencesStore(state => ({
@@ -77,13 +81,13 @@ export function ChatContextItems(props: {
 
     <ListItem sticky>
       <Typography level='body2'>
-        Conversation
+        {t('Conversation')}
       </Typography>
     </ListItem>
 
     <MenuItem onClick={handleSystemMessagesToggle}>
       <ListItemDecorator><SettingsSuggestIcon /></ListItemDecorator>
-      System message
+      {t('System message')}
       <Switch checked={showSystemMessages} onChange={handleSystemMessagesToggle} sx={{ ml: 'auto' }} />
     </MenuItem>
 
@@ -95,7 +99,7 @@ export function ChatContextItems(props: {
         <ForkRightIcon color='info' />
         {/*</Badge>*/}
       </ListItemDecorator>
-      Duplicate
+      {t('Duplicate')}
     </MenuItem>
 
     <MenuItem disabled={disabled} onClick={handleConversationFlatten}>
@@ -104,15 +108,15 @@ export function ChatContextItems(props: {
         <CompressIcon color='info' />
         {/*</Badge>*/}
       </ListItemDecorator>
-      Flatten
+      {t('Flatten')}
     </MenuItem>
 
     <ListDivider inset='startContent' />
 
     <MenuItem disabled={disabled} onClick={handleToggleMessageSelectionMode}>
-      <ListItemDecorator>{props.isMessageSelectionMode ? <CheckBoxOutlinedIcon /> : <CheckBoxOutlineBlankOutlinedIcon />}</ListItemDecorator>
+    <ListItemDecorator>{props.isMessageSelectionMode ? <CheckBoxOutlinedIcon /> : <CheckBoxOutlineBlankOutlinedIcon />}</ListItemDecorator>
       <span style={props.isMessageSelectionMode ? { fontWeight: 800 } : {}}>
-        Cleanup ...
+        {t('Cleanup ...')}
       </span>
     </MenuItem>
 
@@ -122,20 +126,20 @@ export function ChatContextItems(props: {
         <ExitToAppIcon />
         {/*</Badge>*/}
       </ListItemDecorator>
-      Share on paste.gg
+      {t('Share on paste.gg')}
     </MenuItem>
 
     <MenuItem disabled={disabled} onClick={handleConversationDownload}>
       <ListItemDecorator>
         <FileDownloadIcon />
       </ListItemDecorator>
-      Export conversation
+      {t('Export conversation')}
     </MenuItem>
 
     <MenuItem disabled={disabled} onClick={handleConversationClear}>
       <ListItemDecorator><ClearIcon /></ListItemDecorator>
-      Reset
+      {t('Reset')}
     </MenuItem>
 
   </>;
-}
+} 
