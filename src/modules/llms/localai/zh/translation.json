@@ -8,6 +8,7 @@
   "language": "语言",
   "switchToEnglish": "切换至英文",
   "switchToChinese": "切换至中文",
+  
   "Full": "全屏",
   "Centering": "聊天界面",
   "Full screen chat": "全屏聊天",
@@ -36,6 +37,7 @@
   "Disabled": "禁用",
   "On": "开",
   "Off": "关",
+  
   "ASR 🎙️ &amp; TTS 📢": "语音识别 🎙️ 和语音合成 📢",
    "🛠️ Tools enable additional capabilities if enabled and correctly configured": "🛠️ 如果启用并正确配置，工具将启用其他功能",
    "🎨 Turn text into pictures and /imagine anything": "🎨 将文字转换为图片并/imagine任何事物",
@@ -75,5 +77,9 @@
   "Cleanup ...": "清理...",
   "Share on paste.gg": "在 paste.gg 上分享",
   "Export conversation": "导出对话",
-  "Reset": "重置"
+  "Reset": "重置",
+
+  
+  "Preferences": "首选项"
+
 }
