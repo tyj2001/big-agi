@@ -81,7 +81,7 @@
   
   "Preferences": "Preferences",
 
-  //总结
+  //更多
   "briefName": "Brief",
   "briefDescription": "Concise overview with main points and actions",
   "briefSystemPrompt": "Create a brief and concise summary of the given conversation thread, focusing on the most important points, recent developments, and key actionable insights. Maintain enough context for future reference and exclude any references to the user or the assistant. Ensure the summary is impersonal and easy to read, write clear and separated paragraphs and use bullet points when possible.",
