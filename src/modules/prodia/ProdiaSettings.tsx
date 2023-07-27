@@ -17,7 +17,6 @@ import { isValidProdiaApiKey, requireUserKeyProdia } from './prodia.client';
 import { prodiaDefaultModelId } from './prodia.models';
 import { useProdiaStore } from './store-prodia';
 
-
 export function ProdiaSettings() {
   // external state
   const { apiKey, setApiKey, modelId, setModelId, negativePrompt, setNegativePrompt, steps, setSteps, cfgScale, setCfgScale, prodiaAspectRatio, setProdiaAspectRatio, upscale, setUpscale, seed, setSeed } = useProdiaStore(state => ({
@@ -27,8 +26,8 @@ export function ProdiaSettings() {
     steps: state.prodiaSteps, setSteps: state.setProdiaSteps,
     cfgScale: state.prodiaCfgScale, setCfgScale: state.setProdiaCfgScale,
     prodiaAspectRatio: state.prodiaAspectRatio, setProdiaAspectRatio: state.setProdiaAspectRatio,
-    upscale: state.prodiaUpscale, setUpscale: state.setProdiaUpscale,
-    seed: state.prodiaSeed, setSeed: state.setProdiaSeed,
+    upscale: state.prodiaUpscale, setUpscale: state.prodiaUpscale,
+    seed: state.prodiaSeed, setSeed: state.prodiaSeed,
   }), shallow);
 
   const requiresKey = requireUserKeyProdia;
@@ -46,26 +45,25 @@ export function ProdiaSettings() {
 
   return (
     <Stack direction='column' sx={{ gap: settingsGap }}>
-
       <FormHelperText>
-        🎨 Turn text into pictures and /imagine anything
+        {t('🎨Turn text into pictures and /imagine anything')}
       </FormHelperText>
 
       <FormInputKey
-        label='Prodia API Key'
-        rightLabel={requiresKey ? 'required' : '✔️ already set in server'}
+        label={t('Prodia API Key')}
+        rightLabel={requiresKey ? t('required') : t('✔️already set in server')}
         value={apiKey} onChange={setApiKey}
         required={requiresKey} isError={!isValidKey}
       />
 
-      {isError && <Alert variant='soft' color='warning' sx={{ mt: 1 }}><Typography>Issue: {error?.message || error?.toString() || 'unknown'}</Typography></Alert>}
+      {isError && <Alert variant='soft' color='warning' sx={{ mt: 1 }}><Typography>{t('Issue: {errorMessage}', { errorMessage: error?.message || error?.toString() || 'unknown' })}</Typography></Alert>}
 
       <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
         <FormLabel sx={{ minWidth: colWidth }}>
-          Diffusion Model
+          {t('Diffusion Model')}
         </FormLabel>
         <Select
-          variant='outlined' placeholder={isValidKey ? 'Select a model' : 'Enter API Key'}
+          variant='outlined' placeholder={isValidKey ? t('Select a model') : t('Enter API Key')}
           value={modelId || prodiaDefaultModelId} onChange={handleModelChange}
           startDecorator={<FormatPaintIcon />}
           endDecorator={isValidKey && loadingModels && <CircularProgress size='sm' />}
@@ -85,18 +83,18 @@ export function ProdiaSettings() {
 
       <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
         <Box>
-          <Tooltip title='Avoid these image traits: comma-separated names & adjectives that you want the images to Not have. Example: ugly, blurry, malformed'>
+          <Tooltip title={t('Avoid these image traits: comma-separated names & adjectives that you want the images to Not have. Example: ugly, blurry, malformed')}>
             <FormLabel sx={{ minWidth: colWidth }}>
-              Negative Prompt <InfoOutlinedIcon sx={{ mx: 0.5 }} />
+              {t('Negative Prompt')} <InfoOutlinedIcon sx={{ mx: 0.5 }} />
             </FormLabel>
           </Tooltip>
           <FormHelperText>
-            {negativePrompt ? 'Custom' : 'Not set'}
+            {negativePrompt ? t('Custom') : t('Not set')} 
           </FormHelperText>
         </Box>
         <Input
-          aria-label='Image Generation Negative Prompt'
-          variant='outlined' placeholder='ugly, blurry, ...'
+          aria-label={t('Image Generation Negative Prompt')}
+          variant='outlined' placeholder={t('ugly, blurry, ...')}
           value={negativePrompt} onChange={(e) => setNegativePrompt(e.target.value)}
           slotProps={{ input: { sx: { width: '100%' } } }}
           sx={{ width: '100%' }}
@@ -105,17 +103,17 @@ export function ProdiaSettings() {
 
       <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
         <Box>
-          <Tooltip title='More steps boost image detail & quality but risk oversaturation and cost increase. Start from 20 steps, and increase gradually. Defaults to 25.'>
+          <Tooltip title={t('More steps boost image detail & quality but risk oversaturation and cost increase. Start from 20 steps, and increase gradually. Defaults to 25.')}>
             <FormLabel sx={{ minWidth: colWidth }}>
-              Diffusion Steps <InfoOutlinedIcon sx={{ mx: 0.5 }} />
+              {t('Diffusion Steps')} <InfoOutlinedIcon sx={{ mx: 0.5 }} />
             </FormLabel>
           </Tooltip>
           <FormHelperText>
-            {steps === 25 ? 'Default' : steps > 30 ? (steps > 40 ? 'May be unnecessary' : 'More detail') : steps <= 15 ? 'Less detail' : 'Balanced'}
+            {steps === 25 ? t('Default') : steps > 30 ? (steps > 40 ? t('May be unnecessary') : t('More detail')) : steps <= 15 ? t('Less detail') : t('Balanced')}
           </FormHelperText>
         </Box>
         <Slider
-          aria-label='Image Generation steps' valueLabelDisplay='auto'
+          aria-label={t('Image Generation steps')} valueLabelDisplay='auto'
           value={steps} onChange={(e, value) => setSteps(value as number)}
           min={10} max={50} step={1} defaultValue={25}
           sx={{ width: '100%' }}
@@ -124,17 +122,17 @@ export function ProdiaSettings() {
 
       <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
         <Box>
-          <Tooltip title='Adjust the prompt intensity for generation. Low values deviate, high values overfit. Default: 7 - a balanced start.'>
+          <Tooltip title={t('Adjust the prompt intensity for generation. Low values deviate, high values overfit. Default: 7 - a balanced start.')}>
             <FormLabel sx={{ minWidth: colWidth }}>
-              Cfg-Scale <InfoOutlinedIcon sx={{ mx: 0.5 }} />
+              {t('Cfg-Scale')} <InfoOutlinedIcon sx={{ mx: 0.5 }} />
             </FormLabel>
           </Tooltip>
           <FormHelperText>
-            {cfgScale === 7 ? 'Default' : cfgScale >= 9 ? (cfgScale >= 12 ? 'Heavy guidance' : 'Intense guidance') : cfgScale <= 5 ? 'More freedom' : 'Balanced'}
+            {cfgScale === 7 ? t('Default') : cfgScale >= 9 ? (cfgScale >= 12 ? t('Heavy guidance') : t('Intense guidance')) : cfgScale <= 5 ? t('More freedom') : t('Balanced')}
           </FormHelperText>
         </Box>
         <Slider
-          aria-label='Image Generation Guidance' valueLabelDisplay='auto'
+          aria-label={t('Image Generation Guidance')} valueLabelDisplay='auto'
           value={cfgScale} onChange={(e, value) => setCfgScale(value as number)}
           min={1} max={15} step={0.5} defaultValue={7}
           sx={{ width: '100%' }}
@@ -144,10 +142,10 @@ export function ProdiaSettings() {
       <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
         <Box>
           <FormLabel sx={{ minWidth: colWidth }}>
-            Aspect Ratio
+            {t('Aspect Ratio')}
           </FormLabel>
           <FormHelperText>
-            {prodiaAspectRatio === 'square' ? 'Square' : prodiaAspectRatio === 'portrait' ? 'Portrait' : 'Landscape'}
+            {prodiaAspectRatio === 'square' ? t('Square') : prodiaAspectRatio === 'portrait' ? t('Portrait') : t('Landscape')}
           </FormHelperText>
         </Box>
         <RadioGroup orientation='horizontal' value={prodiaAspectRatio} onChange={(e) => setProdiaAspectRatio(e.target.value as 'square' | 'portrait' | 'landscape')}>
@@ -160,10 +158,10 @@ export function ProdiaSettings() {
       <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
         <Box>
           <FormLabel sx={{ minWidth: colWidth }}>
-            Upscale <InfoOutlinedIcon sx={{ mx: 0.5 }} />
+            {t('Upscale')} <InfoOutlinedIcon sx={{ mx: 0.5 }} />
           </FormLabel>
           <FormHelperText>
-            {upscale ? '1024px' : 'Default'}
+            {upscale ? t('1024px') : t('Default')}
           </FormHelperText>
         </Box>
         <Switch checked={upscale} onChange={(e) => setUpscale(e.target.checked)}
@@ -173,18 +171,18 @@ export function ProdiaSettings() {
 
       <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
         <Box>
-          <Tooltip title='Set value for reproducible images. Different by default.'>
+          <Tooltip title={t('Set value for reproducible images. Different by default.')}>
             <FormLabel sx={{ minWidth: colWidth }}>
-              Noise Seed <InfoOutlinedIcon sx={{ mx: 0.5 }} />
+              {t('Noise Seed')} <InfoOutlinedIcon sx={{ mx: 0.5 }} />
             </FormLabel>
           </Tooltip>
           <FormHelperText>
-            {seed ? 'Custom' : 'Random'}
+            {seed ? t('Custom') : t('Random')}
           </FormHelperText>
         </Box>
         <Input
-          aria-label='Image Generation Seed'
-          variant='outlined' placeholder='Random'
+          aria-label={t('Image Generation Seed')}
+          variant='outlined' placeholder={t('Random')}
           value={seed || ''} onChange={(e) => setSeed(e.target.value || '')}
           slotProps={{
             input: {
@@ -195,7 +193,6 @@ export function ProdiaSettings() {
           sx={{ width: '100%' }}
         />
       </FormControl>
-
     </Stack>
   );
 }
