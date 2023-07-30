@@ -142,7 +142,7 @@ const SentMessagesMenu = (props: {
 
 Replit
 
-The `translation.json` file will look like this:
+import { ConfirmationModal } from '~/common/components/ConfirmationModal';:
 json
 {
   "Attach a file to the message": "Attach a file to the message",
