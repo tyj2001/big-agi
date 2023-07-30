@@ -47,7 +47,7 @@ import { useComposerStore } from './store-composer';
 const PromptTemplates = {
   Concatenate: '{{input}}\n\n{{text}}',
   PasteFile: '{{input}}\n\n
-{{fileName}}\n{{fileText}}\n```\n',
+    {{fileName}}\n{{fileText}}\n```\n',
   PasteMarkdown: '{{input}}\n\n```\n{{clipboard}}\n```\n',
 };
 
@@ -71,19 +71,19 @@ const attachFileLegend =
         <td width={36}><PictureAsPdfIcon sx={{ width: 24, height: 24 }} /></td>
         <td><b>{t('PDF')}</b></td>
         <td width={36} align='center' style={{ opacity: 0.5 }}>→</td>
-        <td>{t('📝 Text (split manually)')}</td>
+        <td>📝 {t('Text (split manually)')}</td>
       </tr>
       <tr>
         <td><DataArrayIcon sx={{ width: 24, height: 24 }} /></td>
         <td><b>{t('Code')}</b></td>
         <td align='center' style={{ opacity: 0.5 }}>→</td>
-        <td>{t('📚 Markdown')}</td>
+        <td>📚 {t('Markdown')}</td>
       </tr>
       <tr>
         <td><FormatAlignCenterIcon sx={{ width: 24, height: 24 }} /></td>
         <td><b>{t('Text')}</b></td>
         <td align='center' style={{ opacity: 0.5 }}>→</td>
-        <td>{t('📝 As-is')}</td>
+        <td>📝 {t('As-is')}</td>
       </tr>
       </tbody>
     </table>
@@ -99,11 +99,12 @@ const pasteClipboardLegend =
 
 
 const MicButton = (props: { variant: VariantProp, color: ColorPaletteProp, onClick: () => void, sx?: SxProps }) =>
-  <Tooltip title='CTRL + M' placement='top'>
+  <Tooltip title={t('CTRL + M')} placement='top'>
     <IconButton variant={props.variant} color={props.color} onClick={props.onClick} sx={props.sx}>
       <MicIcon />
     </IconButton>
   </Tooltip>;
+
 
 const SentMessagesMenu = (props: {
   anchorEl: HTMLAnchorElement, onClose: () => void,
@@ -140,7 +141,24 @@ const SentMessagesMenu = (props: {
 
   </Menu>;
 
+Replit
 
+The `translation.json` file will look like this:
+json
+{
+  "Attach a file to the message": "Attach a file to the message",
+  "PDF": "PDF",
+  "Text (split manually)": "Text (split manually)",
+  "Code": "Code",
+  "Markdown": "Markdown",
+  "Text": "Text",
+  "As-is": "As-is",
+  "Drag & drop in chat for faster loads ⚡": "Drag & drop in chat for faster loads ⚡",
+  "Converts Code and Tables to 📚 Markdown": "Converts Code and Tables to 📚 Markdown",
+  "CTRL + M": "CTRL + M",
+  "Reuse messages 💬": "Reuse messages 💬",
+  "Clear sent messages history": "Clear sent messages history"
+}
 /**
  * A React component for composing and sending messages in a chat-like interface.
  * Supports pasting text and code from the clipboard, and a local log of sent messages.
@@ -204,6 +222,7 @@ export function Composer(props: {
   const responseTokens = (chatLLM?.options as LLMOptionsOpenAI /* FIXME: BIG ASSUMPTION */)?.llmResponseTokens || 0;
   const remainingTokens = tokenLimit - directTokens - historyTokens - responseTokens;
 
+
   const handleSendClicked = () => {
     const text = (composeText || '').trim();
     if (text.length && props.conversationId) {
@@ -235,6 +254,7 @@ export function Composer(props: {
       }
     }
   };
+
 
   const onSpeechResultCallback = React.useCallback((result: SpeechResult) => {
     setSpeechInterimResult(result.done ? null : { ...result });
@@ -270,7 +290,7 @@ export function Composer(props: {
           fileText = await pdfToText(file);
         else
           fileText = await file.text();
-        newText = expandPromptTemplate(PromptTemplates.PasteFile, { fileName: fileName, fileText: fileText })(newText);
+        newText = expandPromptTemplate(PromptTemplates.PasteFile, { fileName: fileName, fileText })(newText);
       } catch (error) {
         // show errors in the prompt box itself - FUTURE: show in a toast
         console.error(error);
@@ -322,7 +342,7 @@ export function Composer(props: {
       // when pasting html, only process tables as markdown (e.g. from Excel), or fallback to text
       try {
         const htmlItem = await clipboardItem.getType('text/html');
-        const htmlString = await htmlstring.text();
+        const htmlString = await htmlItem.text();
         // paste tables as markdown
         if (htmlString.indexOf('<table') == 0) {
           const markdownString = htmlTableToMarkdown(htmlString);
@@ -430,11 +450,11 @@ export function Composer(props: {
   // const prodiaApiKey = isValidProdiaApiKey(useSettingsStore(state => state.prodiaApiKey));
   // const isProdiaConfigured = !requireUserKeyProdia || prodiaApiKey;
   const textPlaceholder: string = props.isDeveloperMode
-    ? t('Tell me what you need, and drop source files...')
-    : /*isProdiaConfigured ?*/ t('Chat · /react · /imagine · drop text files...') /*: 'Chat · /react · drop text files...'*/;
+    ? 'Tell me what you need, and drop source files...'
+    : /*isProdiaConfigured ?*/ 'Chat · /react · /imagine · drop text files...' /*: 'Chat · /react · drop text files...'*/;
 
   // const isImmediate = props.chatModeId === 'immediate';
-  const isFollowUp = props.chatModeId ==='immediate-follow-up';
+  const isFollowUp = props.chatModeId === 'immediate-follow-up';
   const isReAct = props.chatModeId === 'react';
   const isWriteUser = props.chatModeId === 'write-user';
 
@@ -444,7 +464,7 @@ export function Composer(props: {
       onClick={handleSendClicked} onDoubleClick={handleToggleChatMode}
       endDecorator={isWriteUser ? <SendIcon sx={{ fontSize: 18 }} /> : isReAct ? <PsychologyIcon /> : <TelegramIcon />}
     >
-      {isWriteUser ? t('Write') : isReAct ? t('ReAct') : isFollowUp ? t('Chat+') : t('Chat')}
+      {isWriteUser ? 'Write' : isReAct ? 'ReAct' : isFollowUp ? 'Chat+' : 'Chat'}
     </Button>
   );
 
