@@ -71,20 +71,19 @@ const attachFileLegend =
         <td width={36}><PictureAsPdfIcon sx={{ width: 24, height: 24 }} /></td>
         <td><b>{t('PDF')}</b></td>
         <td width={36} align='center' style={{ opacity: 0.5 }}>→</td>
-        <td>📝 {t('Text (split manually)')}</td>
+        <td>{t('📝 Text (split manually)')}</td>
       </tr>
       <tr>
         <td><DataArrayIcon sx={{ width: 24, height: 24 }} /></td>
         <td><b>{t('Code')}</b></td>
         <td align='center' style={{ opacity: 0.5 }}>→</td>
-        <td>📚 {t('Markdown')}</td>
+        <td>{t('📚 Markdown')}</td>
       </tr>
       <tr>
-        <td><FormatAlignCenterIcon sx={{ wid
-        th: 24, height: 24 }} /></td>
+        <td><FormatAlignCenterIcon sx={{ width: 24, height: 24 }} /></td>
         <td><b>{t('Text')}</b></td>
         <td align='center' style={{ opacity: 0.5 }}>→</td>
-        <td>📝 {t('As-is')}</td>
+        <td>{t('📝 As-is')}</td>
       </tr>
       </tbody>
     </table>
@@ -271,11 +270,11 @@ export function Composer(props: {
           fileText = await pdfToText(file);
         else
           fileText = await file.text();
-        newText = expandPromptTemplate(PromptTemplates.PasteFile, { fileName: fileName, fileText })(newText);
+        newText = expandPromptTemplate(PromptTemplates.PasteFile, { fileName: fileName, fileText: fileText })(newText);
       } catch (error) {
         // show errors in the prompt box itself - FUTURE: show in a toast
         console.error(error);
-        newText = `${newText}\n\nError loading file ${fileName}: ${error}\n`;
+        newText = `${newText}\n\n${t('Error loading file')} ${fileName}: ${error}\n`;
       }
     }
 
@@ -323,7 +322,7 @@ export function Composer(props: {
       // when pasting html, only process tables as markdown (e.g. from Excel), or fallback to text
       try {
         const htmlItem = await clipboardItem.getType('text/html');
-        const htmlString = await htmlItem.text();
+        const htmlString = await htmlstring.text();
         // paste tables as markdown
         if (htmlString.indexOf('<table') == 0) {
           const markdownString = htmlTableToMarkdown(htmlString);
@@ -435,7 +434,7 @@ export function Composer(props: {
     : /*isProdiaConfigured ?*/ t('Chat · /react · /imagine · drop text files...') /*: 'Chat · /react · drop text files...'*/;
 
   // const isImmediate = props.chatModeId === 'immediate';
-  const isFollowUp = props.chatModeId === 'immediate-follow-up';
+  const isFollowUp = props.chatModeId ==='immediate-follow-up';
   const isReAct = props.chatModeId === 'react';
   const isWriteUser = props.chatModeId === 'write-user';
 
