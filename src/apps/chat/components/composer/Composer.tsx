@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'zustand/shallow';
+import { useTranslation } from 'react-i18next';
 
 import { Box, Button, ButtonGroup, Card, Grid, IconButton, ListDivider, ListItemDecorator, Menu, MenuItem, Stack, Textarea, Tooltip, Typography, useTheme } from '@mui/joy';
 import { ColorPaletteProp, SxProps, VariantProp } from '@mui/joy/styles/types';
@@ -45,7 +46,8 @@ import { useComposerStore } from './store-composer';
 
 const PromptTemplates = {
   Concatenate: '{{input}}\n\n{{text}}',
-  PasteFile: '{{input}}\n\n```{{fileName}}\n{{fileText}}\n```\n',
+  PasteFile: '{{input}}\n\n
+{{fileName}}\n{{fileText}}\n```\n',
   PasteMarkdown: '{{input}}\n\n```\n{{clipboard}}\n```\n',
 };
 
@@ -56,42 +58,44 @@ const expandPromptTemplate = (template: string, dict: object) => (inputValue: st
   return expanded;
 };
 
+const { t } = useTranslation();
 
 const attachFileLegend =
   <Stack sx={{ p: 1, gap: 1, fontSize: '16px', fontWeight: 400 }}>
     <Box sx={{ mb: 1, textAlign: 'center' }}>
-      Attach a file to the message
+      {t('Attach a file to the message')}
     </Box>
     <table>
       <tbody>
       <tr>
         <td width={36}><PictureAsPdfIcon sx={{ width: 24, height: 24 }} /></td>
-        <td><b>PDF</b></td>
+        <td><b>{t('PDF')}</b></td>
         <td width={36} align='center' style={{ opacity: 0.5 }}>→</td>
-        <td>📝 Text (split manually)</td>
+        <td>📝 {t('Text (split manually)')}</td>
       </tr>
       <tr>
         <td><DataArrayIcon sx={{ width: 24, height: 24 }} /></td>
-        <td><b>Code</b></td>
+        <td><b>{t('Code')}</b></td>
         <td align='center' style={{ opacity: 0.5 }}>→</td>
-        <td>📚 Markdown</td>
+        <td>📚 {t('Markdown')}</td>
       </tr>
       <tr>
-        <td><FormatAlignCenterIcon sx={{ width: 24, height: 24 }} /></td>
-        <td><b>Text</b></td>
+        <td><FormatAlignCenterIcon sx={{ wid
+        th: 24, height: 24 }} /></td>
+        <td><b>{t('Text')}</b></td>
         <td align='center' style={{ opacity: 0.5 }}>→</td>
-        <td>📝 As-is</td>
+        <td>📝 {t('As-is')}</td>
       </tr>
       </tbody>
     </table>
     <Box sx={{ mt: 1, fontSize: '14px' }}>
-      Drag & drop in chat for faster loads ⚡
+      {t('Drag & drop in chat for faster loads ⚡')}
     </Box>
   </Stack>;
 
 const pasteClipboardLegend =
   <Box sx={{ p: 1, fontSize: '14px', fontWeight: 400 }}>
-    Converts Code and Tables to 📚 Markdown
+    {t('Converts Code and Tables to 📚 Markdown')}
   </Box>;
 
 
@@ -101,7 +105,6 @@ const MicButton = (props: { variant: VariantProp, color: ColorPaletteProp, onCli
       <MicIcon />
     </IconButton>
   </Tooltip>;
-
 
 const SentMessagesMenu = (props: {
   anchorEl: HTMLAnchorElement, onClose: () => void,
@@ -113,7 +116,7 @@ const SentMessagesMenu = (props: {
     variant='plain' color='neutral' size='md' placement='top-end' sx={{ minWidth: 320, maxWidth: '100dvw', maxHeight: 'calc(100dvh - 56px)', overflowY: 'auto' }}
     open={!!props.anchorEl} anchorEl={props.anchorEl} onClose={props.onClose}>
 
-    <MenuItem color='neutral' selected>Reuse messages 💬</MenuItem>
+    <MenuItem color='neutral' selected>{t('Reuse messages 💬')}</MenuItem>
 
     <ListDivider />
 
@@ -133,7 +136,7 @@ const SentMessagesMenu = (props: {
 
     <MenuItem onClick={props.onClear}>
       <ListItemDecorator><DeleteOutlineIcon /></ListItemDecorator>
-      Clear sent messages history
+      {t('Clear sent messages history')}
     </MenuItem>
 
   </Menu>;
@@ -202,7 +205,6 @@ export function Composer(props: {
   const responseTokens = (chatLLM?.options as LLMOptionsOpenAI /* FIXME: BIG ASSUMPTION */)?.llmResponseTokens || 0;
   const remainingTokens = tokenLimit - directTokens - historyTokens - responseTokens;
 
-
   const handleSendClicked = () => {
     const text = (composeText || '').trim();
     if (text.length && props.conversationId) {
@@ -234,7 +236,6 @@ export function Composer(props: {
       }
     }
   };
-
 
   const onSpeechResultCallback = React.useCallback((result: SpeechResult) => {
     setSpeechInterimResult(result.done ? null : { ...result });
@@ -430,8 +431,8 @@ export function Composer(props: {
   // const prodiaApiKey = isValidProdiaApiKey(useSettingsStore(state => state.prodiaApiKey));
   // const isProdiaConfigured = !requireUserKeyProdia || prodiaApiKey;
   const textPlaceholder: string = props.isDeveloperMode
-    ? 'Tell me what you need, and drop source files...'
-    : /*isProdiaConfigured ?*/ 'Chat · /react · /imagine · drop text files...' /*: 'Chat · /react · drop text files...'*/;
+    ? t('Tell me what you need, and drop source files...')
+    : /*isProdiaConfigured ?*/ t('Chat · /react · /imagine · drop text files...') /*: 'Chat · /react · drop text files...'*/;
 
   // const isImmediate = props.chatModeId === 'immediate';
   const isFollowUp = props.chatModeId === 'immediate-follow-up';
@@ -444,7 +445,7 @@ export function Composer(props: {
       onClick={handleSendClicked} onDoubleClick={handleToggleChatMode}
       endDecorator={isWriteUser ? <SendIcon sx={{ fontSize: 18 }} /> : isReAct ? <PsychologyIcon /> : <TelegramIcon />}
     >
-      {isWriteUser ? 'Write' : isReAct ? 'ReAct' : isFollowUp ? 'Chat+' : 'Chat'}
+      {isWriteUser ? t('Write') : isReAct ? t('ReAct') : isFollowUp ? t('Chat+') : t('Chat')}
     </Button>
   );
 
@@ -474,7 +475,7 @@ export function Composer(props: {
               title={attachFileLegend}>
               <Button fullWidth variant='plain' color='neutral' onClick={handleShowFilePicker} startDecorator={<AttachFileOutlinedIcon />}
                       sx={{ ...hideOnMobile, justifyContent: 'flex-start' }}>
-                Attach
+                {t('Attach')}
               </Button>
             </Tooltip>
 
@@ -486,7 +487,7 @@ export function Composer(props: {
               title={pasteClipboardLegend}>
               <Button fullWidth variant='plain' color='neutral' startDecorator={<ContentPasteGoIcon />} onClick={handlePasteButtonClicked}
                       sx={{ ...hideOnMobile, justifyContent: 'flex-start' }}>
-                {props.isDeveloperMode ? 'Paste code' : 'Paste'}
+                {props.isDeveloperMode ? t('Paste code') : t('Paste')}
               </Button>
             </Tooltip>
 
@@ -573,7 +574,7 @@ export function Composer(props: {
               onDrop={handleOverlayDrop}>
               <PanToolIcon sx={{ width: 40, height: 40, pointerEvents: 'none' }} />
               <Typography level='body2' sx={{ pointerEvents: 'none' }}>
-                I will hold on to this for you
+                {t('I will hold on to this for you')}
               </Typography>
             </Card>
 
@@ -602,7 +603,7 @@ export function Composer(props: {
                     onClick={handleStopClicked}
                     endDecorator={<StopOutlinedIcon />}
                   >
-                    Stop
+                    {t('Stop')}
                   </Button>
                 ) : /*(!goofyLabs && isImmediate) ? chatButton :*/ (
                   <ButtonGroup variant={isWriteUser ? 'solid' : 'solid'} color={isReAct ? 'info' : isFollowUp ? 'warning' : 'primary'} sx={{ flexGrow: 1 }}>
@@ -618,7 +619,7 @@ export function Composer(props: {
             <Stack direction='row' spacing={1} sx={{ ...hideOnMobile, flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'flex-end' }}>
               {sentMessages.length > 0 && (
                 <Button disabled={!!sentMessagesAnchor} fullWidth variant='plain' color='neutral' startDecorator={<KeyboardArrowUpIcon />} onClick={showSentMessages}>
-                  History
+                  {t('History')}
                 </Button>
               )}
             </Stack>
@@ -655,7 +656,7 @@ export function Composer(props: {
         {/* Clear confirmation modal */}
         <ConfirmationModal
           open={confirmClearSent} onClose={handleCancelClearSent} onPositive={handleConfirmedClearSent}
-          confirmationText={'Are you sure you want to clear all your sent messages?'} positiveActionText={'Clear all'}
+          confirmationText={t('Are you sure you want to clear all your sent messages?')} positiveActionText={t('Clear all')}
         />
 
       </Grid>
