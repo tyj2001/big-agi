@@ -46,8 +46,9 @@ import { useComposerStore } from './store-composer';
 
 const PromptTemplates = {
   Concatenate: '{{input}}\n\n{{text}}',
-  PasteFile: '{{input}}\n\n{{fileName}}\n{{fileText}}\n\n',
-  PasteMarkdown: '{{input}}\n\n{{clipboard}}\n```\n',
+  PasteFile: '{{input}}\n\n
+{{fileName}}\n{{fileText}}\n```\n',
+  PasteMarkdown: '{{input}}\n\n```\n{{clipboard}}\n```\n',
 };
 
 const expandPromptTemplate = (template: string, dict: object) => (inputValue: string): string => {
@@ -139,10 +140,7 @@ const SentMessagesMenu = (props: {
     </MenuItem>
 
   </Menu>;
-
-Replit
-
-/**
+  /**
  * A React component for composing and sending messages in a chat-like interface.
  * Supports pasting text and code from the clipboard, and a local log of sent messages.
  *
