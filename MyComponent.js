@@ -1,11 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { SystemPurposes, SystemPurposeId } from './src/data';
+import i18n from './i18n'; // 从正确的路径导入 i18n 实例
 
-const MyComponent: React.FC = () => {
+const MyComponent = () => {
   const { t } = useTranslation();
 
-  const renderSystemPurpose = (purposeId: SystemPurposeId) => {
+  const renderSystemPurpose = (purposeId) => {
     const purpose = SystemPurposes[purposeId];
     return (
       <div>
@@ -27,4 +28,10 @@ const MyComponent: React.FC = () => {
   );
 };
 
-export default MyComponent;
+export default function WrappedMyComponent() {
+  return (
+    <RootI18nProvider>
+      <MyComponent />
+    </RootI18nProvider>
+  );
+}
