@@ -46,10 +46,9 @@ import { useComposerStore } from './store-composer';
 
 const PromptTemplates = {
   Concatenate: '{{input}}\n\n{{text}}',
-    PasteFile: '{{input}}\n\n{{fileName}}\n{{fileText}}\n\n',
-{{fileName}}\n{{fileText}}\n
-\n',
-  PasteMarkdown: '{{input}}\n\n```\n{{clipboard}}\n```\n',
+  PasteFile: '{{input}}\n\n{{fileName}}\n{{fileText}}\n\n',
+  PasteMarkdown: '{{input}}\n\n
+\n{{clipboard}}\n```\n',
 };
 
 const expandPromptTemplate = (template: string, dict: object) => (inputValue: string): string => {
@@ -273,7 +272,7 @@ export function Composer(props: {
           fileText = await pdfToText(file);
         else
           fileText = await file.text();
-        newText = expandPromptTemplate(PromptTemplates.PasteFile, { fileName: fileName, fileText })(newText);
+        newText = expandPromptTemplate(PromptTemplates.PasteFile, { fileName: fileName, fileText: fileText })(newText);
       } catch (error) {
         // show errors in the prompt box itself - FUTURE: show in a toast
         console.error(error);
@@ -459,9 +458,9 @@ export function Composer(props: {
         <Grid xs={12} md={9}><Stack direction='row' spacing={{ xs: 1, md: 2 }}>
 
           {/* Vertical Buttons Bar */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0, md: 2 } }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0, md: 2 } }}>        
+          {/*<Typography level='body3' sx={{mb: 2}}>{t('Context')}</Typography>*/}
 
-            {/*<Typography level='body3' sx={{mb: 2}}>{t('Context')}</Typography>*/}
 
             {isSpeechEnabled && <Box sx={hideOnDesktop}>
               <MicButton variant={micVariant} color={micColor} onClick={handleMicClicked} />
