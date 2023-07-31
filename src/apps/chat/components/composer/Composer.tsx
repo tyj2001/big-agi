@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { shallow } from 'zustand/shallow';
-import { useTranslation } from 'react-i18next';
 
 import { Box, Button, ButtonGroup, Card, Grid, IconButton, ListDivider, ListItemDecorator, Menu, MenuItem, Stack, Textarea, Tooltip, Typography, useTheme } from '@mui/joy';
 import { ColorPaletteProp, SxProps, VariantProp } from '@mui/joy/styles/types';
@@ -46,9 +45,8 @@ import { useComposerStore } from './store-composer';
 
 const PromptTemplates = {
   Concatenate: '{{input}}\n\n{{text}}',
-  PasteFile: '{{input}}\n\n{{fileName}}\n{{fileText}}\n\n',
-  PasteMarkdown: '{{input}}\n\n
-\n{{clipboard}}\n```\n',
+  PasteFile: '{{input}}\n\n```{{fileName}}\n{{fileText}}\n```\n',
+  PasteMarkdown: '{{input}}\n\n```\n{{clipboard}}\n```\n',
 };
 
 const expandPromptTemplate = (template: string, dict: object) => (inputValue: string): string => {
@@ -58,52 +56,52 @@ const expandPromptTemplate = (template: string, dict: object) => (inputValue: st
   return expanded;
 };
 
-const { t } = useTranslation();
 
 const attachFileLegend =
   <Stack sx={{ p: 1, gap: 1, fontSize: '16px', fontWeight: 400 }}>
     <Box sx={{ mb: 1, textAlign: 'center' }}>
-      {t('Attach a file to the message')}
+      Attach a file to the message
     </Box>
     <table>
       <tbody>
       <tr>
         <td width={36}><PictureAsPdfIcon sx={{ width: 24, height: 24 }} /></td>
-        <td><b>{t('PDF')}</b></td>
+        <td><b>PDF</b></td>
         <td width={36} align='center' style={{ opacity: 0.5 }}>→</td>
-        <td>📝 {t('Text (split manually)')}</td>
+        <td>📝 Text (split manually)</td>
       </tr>
       <tr>
         <td><DataArrayIcon sx={{ width: 24, height: 24 }} /></td>
-        <td><b>{t('Code')}</b></td>
+        <td><b>Code</b></td>
         <td align='center' style={{ opacity: 0.5 }}>→</td>
-        <td>📚 {t('Markdown')}</td>
+        <td>📚 Markdown</td>
       </tr>
       <tr>
         <td><FormatAlignCenterIcon sx={{ width: 24, height: 24 }} /></td>
-        <td><b>{t('Text')}</b></td>
+        <td><b>Text</b></td>
         <td align='center' style={{ opacity: 0.5 }}>→</td>
-        <td>📝 {t('As-is')}</td>
+        <td>📝 As-is</td>
       </tr>
       </tbody>
     </table>
     <Box sx={{ mt: 1, fontSize: '14px' }}>
-      {t('Drag & drop in chat for faster loads ⚡')}
+      Drag & drop in chat for faster loads ⚡
     </Box>
   </Stack>;
 
 const pasteClipboardLegend =
   <Box sx={{ p: 1, fontSize: '14px', fontWeight: 400 }}>
-    {t('Converts Code and Tables to 📚 Markdown')}
+    Converts Code and Tables to 📚 Markdown
   </Box>;
 
 
 const MicButton = (props: { variant: VariantProp, color: ColorPaletteProp, onClick: () => void, sx?: SxProps }) =>
-  <Tooltip title={t('CTRL + M')} placement='top'>
+  <Tooltip title='CTRL + M' placement='top'>
     <IconButton variant={props.variant} color={props.color} onClick={props.onClick} sx={props.sx}>
       <MicIcon />
     </IconButton>
   </Tooltip>;
+
 
 const SentMessagesMenu = (props: {
   anchorEl: HTMLAnchorElement, onClose: () => void,
@@ -115,7 +113,7 @@ const SentMessagesMenu = (props: {
     variant='plain' color='neutral' size='md' placement='top-end' sx={{ minWidth: 320, maxWidth: '100dvw', maxHeight: 'calc(100dvh - 56px)', overflowY: 'auto' }}
     open={!!props.anchorEl} anchorEl={props.anchorEl} onClose={props.onClose}>
 
-    <MenuItem color='neutral' selected>{t('Reuse messages 💬')}</MenuItem>
+    <MenuItem color='neutral' selected>Reuse messages 💬</MenuItem>
 
     <ListDivider />
 
@@ -135,7 +133,7 @@ const SentMessagesMenu = (props: {
 
     <MenuItem onClick={props.onClear}>
       <ListItemDecorator><DeleteOutlineIcon /></ListItemDecorator>
-      {t('Clear sent messages history')}
+      Clear sent messages history
     </MenuItem>
 
   </Menu>;
@@ -272,11 +270,11 @@ export function Composer(props: {
           fileText = await pdfToText(file);
         else
           fileText = await file.text();
-        newText = expandPromptTemplate(PromptTemplates.PasteFile, { fileName: fileName, fileText: fileText })(newText);
+        newText = expandPromptTemplate(PromptTemplates.PasteFile, { fileName: fileName, fileText })(newText);
       } catch (error) {
         // show errors in the prompt box itself - FUTURE: show in a toast
         console.error(error);
-        newText = `${newText}\n\n${t('Error loading file')} ${fileName}: ${error}\n`;
+        newText = `${newText}\n\nError loading file ${fileName}: ${error}\n`;
       }
     }
 
@@ -432,8 +430,8 @@ export function Composer(props: {
   // const prodiaApiKey = isValidProdiaApiKey(useSettingsStore(state => state.prodiaApiKey));
   // const isProdiaConfigured = !requireUserKeyProdia || prodiaApiKey;
   const textPlaceholder: string = props.isDeveloperMode
-    ? t('Tell me what you need, and drop source files...')
-    : /*isProdiaConfigured ?*/ t('Chat · /react · /imagine · drop text files...') /*: 'Chat · /react · drop text files...'*/;
+    ? 'Tell me what you need, and drop source files...'
+    : /*isProdiaConfigured ?*/ 'Chat · /react · /imagine · drop text files...' /*: 'Chat · /react · drop text files...'*/;
 
   // const isImmediate = props.chatModeId === 'immediate';
   const isFollowUp = props.chatModeId === 'immediate-follow-up';
@@ -446,7 +444,7 @@ export function Composer(props: {
       onClick={handleSendClicked} onDoubleClick={handleToggleChatMode}
       endDecorator={isWriteUser ? <SendIcon sx={{ fontSize: 18 }} /> : isReAct ? <PsychologyIcon /> : <TelegramIcon />}
     >
-      {isWriteUser ? t('Write') : isReAct ? t('ReAct') : isFollowUp ? t('Chat+') : t('Chat')}
+      {isWriteUser ? 'Write' : isReAct ? 'ReAct' : isFollowUp ? 'Chat+' : 'Chat'}
     </Button>
   );
 
@@ -458,9 +456,9 @@ export function Composer(props: {
         <Grid xs={12} md={9}><Stack direction='row' spacing={{ xs: 1, md: 2 }}>
 
           {/* Vertical Buttons Bar */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0, md: 2 } }}>        
-          {/*<Typography level='body3' sx={{mb: 2}}>{t('Context')}</Typography>*/}
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0, md: 2 } }}>
 
+            {/*<Typography level='body3' sx={{mb: 2}}>Context</Typography>*/}
 
             {isSpeechEnabled && <Box sx={hideOnDesktop}>
               <MicButton variant={micVariant} color={micColor} onClick={handleMicClicked} />
@@ -476,7 +474,7 @@ export function Composer(props: {
               title={attachFileLegend}>
               <Button fullWidth variant='plain' color='neutral' onClick={handleShowFilePicker} startDecorator={<AttachFileOutlinedIcon />}
                       sx={{ ...hideOnMobile, justifyContent: 'flex-start' }}>
-                {t('Attach')}
+                Attach
               </Button>
             </Tooltip>
 
@@ -488,7 +486,7 @@ export function Composer(props: {
               title={pasteClipboardLegend}>
               <Button fullWidth variant='plain' color='neutral' startDecorator={<ContentPasteGoIcon />} onClick={handlePasteButtonClicked}
                       sx={{ ...hideOnMobile, justifyContent: 'flex-start' }}>
-                {props.isDeveloperMode ? t('Paste code') : t('Paste')}
+                {props.isDeveloperMode ? 'Paste code' : 'Paste'}
               </Button>
             </Tooltip>
 
@@ -575,7 +573,7 @@ export function Composer(props: {
               onDrop={handleOverlayDrop}>
               <PanToolIcon sx={{ width: 40, height: 40, pointerEvents: 'none' }} />
               <Typography level='body2' sx={{ pointerEvents: 'none' }}>
-                {t('I will hold on to this for you')}
+                I will hold on to this for you
               </Typography>
             </Card>
 
@@ -604,7 +602,7 @@ export function Composer(props: {
                     onClick={handleStopClicked}
                     endDecorator={<StopOutlinedIcon />}
                   >
-                    {t('Stop')}
+                    Stop
                   </Button>
                 ) : /*(!goofyLabs && isImmediate) ? chatButton :*/ (
                   <ButtonGroup variant={isWriteUser ? 'solid' : 'solid'} color={isReAct ? 'info' : isFollowUp ? 'warning' : 'primary'} sx={{ flexGrow: 1 }}>
@@ -620,7 +618,7 @@ export function Composer(props: {
             <Stack direction='row' spacing={1} sx={{ ...hideOnMobile, flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'flex-end' }}>
               {sentMessages.length > 0 && (
                 <Button disabled={!!sentMessagesAnchor} fullWidth variant='plain' color='neutral' startDecorator={<KeyboardArrowUpIcon />} onClick={showSentMessages}>
-                  {t('History')}
+                  History
                 </Button>
               )}
             </Stack>
@@ -657,7 +655,7 @@ export function Composer(props: {
         {/* Clear confirmation modal */}
         <ConfirmationModal
           open={confirmClearSent} onClose={handleCancelClearSent} onPositive={handleConfirmedClearSent}
-          confirmationText={t('Are you sure you want to clear all your sent messages?')} positiveActionText={t('Clear all')}
+          confirmationText={'Are you sure you want to clear all your sent messages?'} positiveActionText={'Clear all'}
         />
 
       </Grid>
