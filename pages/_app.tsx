@@ -54,13 +54,15 @@ function MyApp({ Component, emotionCache = clientSideEmotionCache, pageProps }: 
         {/* Rect-query provider */}
         <QueryClientProvider client={queryClient}>
           {/* 添加 I18nextProvider 组件 */}
-          <I18nextProvider i18n={i18n}>
-            <CssVarsProvider defaultMode='light' theme={theme}>
-              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-              <CssBaseline />
-              {i18nInitialized && <Component {...pageProps} />}
-            </CssVarsProvider>
-          </I18nextProvider>
+          {i18nInitialized && (
+            <I18nextProvider i18n={i18n}>
+              <CssVarsProvider defaultMode='light' theme={theme}>
+                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                <CssBaseline />
+                <Component {...pageProps} />
+              </CssVarsProvider>
+            </I18nextProvider>
+          )}
         </QueryClientProvider>
       </CacheProvider>
       <VercelAnalytics debug={false} />
