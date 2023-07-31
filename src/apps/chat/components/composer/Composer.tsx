@@ -105,7 +105,6 @@ const MicButton = (props: { variant: VariantProp, color: ColorPaletteProp, onCli
     </IconButton>
   </Tooltip>;
 
-
 const SentMessagesMenu = (props: {
   anchorEl: HTMLAnchorElement, onClose: () => void,
   messages: { date: number; text: string; count: number }[],
@@ -140,7 +139,9 @@ const SentMessagesMenu = (props: {
     </MenuItem>
 
   </Menu>;
-  /**
+
+
+/**
  * A React component for composing and sending messages in a chat-like interface.
  * Supports pasting text and code from the clipboard, and a local log of sent messages.
  *
@@ -431,8 +432,8 @@ export function Composer(props: {
   // const prodiaApiKey = isValidProdiaApiKey(useSettingsStore(state => state.prodiaApiKey));
   // const isProdiaConfigured = !requireUserKeyProdia || prodiaApiKey;
   const textPlaceholder: string = props.isDeveloperMode
-    ? 'Tell me what you need, and drop source files...'
-    : /*isProdiaConfigured ?*/ 'Chat · /react · /imagine · drop text files...' /*: 'Chat · /react · drop text files...'*/;
+    ? t('Tell me what you need, and drop source files...')
+    : /*isProdiaConfigured ?*/ t('Chat · /react · /imagine · drop text files...') /*: 'Chat · /react · drop text files...'*/;
 
   // const isImmediate = props.chatModeId === 'immediate';
   const isFollowUp = props.chatModeId === 'immediate-follow-up';
@@ -445,7 +446,7 @@ export function Composer(props: {
       onClick={handleSendClicked} onDoubleClick={handleToggleChatMode}
       endDecorator={isWriteUser ? <SendIcon sx={{ fontSize: 18 }} /> : isReAct ? <PsychologyIcon /> : <TelegramIcon />}
     >
-      {isWriteUser ? 'Write' : isReAct ? 'ReAct' : isFollowUp ? 'Chat+' : 'Chat'}
+      {isWriteUser ? t('Write') : isReAct ? t('ReAct') : isFollowUp ? t('Chat+') : t('Chat')}
     </Button>
   );
 
@@ -459,7 +460,7 @@ export function Composer(props: {
           {/* Vertical Buttons Bar */}
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0, md: 2 } }}>
 
-            {/*<Typography level='body3' sx={{mb: 2}}>Context</Typography>*/}
+            {/*<Typography level='body3' sx={{mb: 2}}>{t('Context')}</Typography>*/}
 
             {isSpeechEnabled && <Box sx={hideOnDesktop}>
               <MicButton variant={micVariant} color={micColor} onClick={handleMicClicked} />
