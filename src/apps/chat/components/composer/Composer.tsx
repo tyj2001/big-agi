@@ -46,7 +46,7 @@ import { useComposerStore } from './store-composer';
 
 const PromptTemplates = {
   Concatenate: '{{input}}\n\n{{text}}',
-  PasteFile: '{{input}}\n\n
+    PasteFile: '{{input}}\n\n{{fileName}}\n{{fileText}}\n\n',
 {{fileName}}\n{{fileText}}\n```\n',
   PasteMarkdown: '{{input}}\n\n```\n{{clipboard}}\n```\n',
 };
