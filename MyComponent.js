@@ -28,10 +28,10 @@ const MyComponent = () => {
   );
 };
 
-export default function WrappedMyComponent() {
-  return (
-    <RootI18nProvider>
-      <MyComponent />
-    </RootI18nProvider>
-  );
-}
+const WrappedMyComponent = () => (
+  <I18nextProvider i18n={i18n}>
+    <MyComponent />
+  </I18nextProvider>
+);
+
+export default WrappedMyComponent;
