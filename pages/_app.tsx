@@ -13,6 +13,7 @@ import { Brand } from '~/common/brand';
 import { createEmotionCache, theme } from '~/common/theme';
 
 import i18n from '../i18n'; // 确保从正确的路径导入 i18n 文件
+import { I18nextProvider } from 'react-i18next';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
