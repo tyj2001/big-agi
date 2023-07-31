@@ -1,36 +1,29 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { SystemPurposes, SystemPurposeId } from './src/data';
 
-import enTranslation from './src/modules/llms/localai/en/translation.json'; // 修正路径
-import zhTranslation from './src/modules/llms/localai/zh/translation.json'; // 修正路径
+const MyComponent: React.FC = () => {
+  const { t } = useTranslation();
 
-const i18nInstance = i18n.createInstance();
-
-i18nInstance
-  .use(initReactI18next)
-  .init({
-    resources: {
-      en: {
-        translation: enTranslation,
-      },
-      zh: {
-        translation: zhTranslation,
-      },
-    },
-    lng: "zh",
-    fallbackLng: "zh",
-    interpolation: {
-      escapeValue: false,
-    },
-  });
-
-export default i18nInstance;
-        {renderSystemPurpose('Executive')}
-        {renderSystemPurpose('Designer')}
-        {renderSystemPurpose('Generic')}
-        {renderSystemPurpose('Custom')}
+  const renderSystemPurpose = (purposeId: SystemPurposeId) => {
+    const purpose = SystemPurposes[purposeId];
+    return (
+      <div>
+        <h2>{t(`SystemPurposes.${purposeId}.title`)}</h2>
+        <p>{t(`SystemPurposes.${purposeId}.description`)}</p>
+        <p>{t(`SystemPurposes.${purposeId}.systemMessage`)}</p>
+        <p>{purpose.symbol}</p>
+        {purpose.examples && purpose.examples.map((example, index) => (
+          <p key={index}>{t(example)}</p>
+        ))}
       </div>
-    </I18nextProvider>
+    );
+  };
+
+  return (
+    <div>
+      {renderSystemPurpose('Developer')}
+    </div>
   );
 };
 
