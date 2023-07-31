@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
 export type SystemPurposeId = 'Catalyst' | 'Custom' | 'Designer' | 'Developer' | 'Executive' | 'Generic' | 'Scientist';
@@ -6,7 +7,7 @@ export const defaultSystemPurposeId: SystemPurposeId = 'Generic';
 
 type SystemPurposeData = {
   title: string;
-  description: string;
+  description: string | React.JSX.Element;
   systemMessage: string;
   symbol: string;
   examples?: string[];
@@ -66,28 +67,85 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
   },
 };
 
-// 使用useTranslation钩子函数进行翻译
-const { t } = useTranslation();
-SystemPurposes.Developer.title = t(SystemPurposes.Developer.title);
-SystemPurposes.Developer.description = t(SystemPurposes.Developer.description);
-SystemPurposes.Developer.systemMessage = t(SystemPurposes.Developer.systemMessage);
-SystemPurposes.Scientist.title = t(SystemPurposes.Scientist.title);
-SystemPurposes.Scientist.description = t(SystemPurposes.Scientist.description);
-SystemPurposes.Scientist.systemMessage = t(SystemPurposes.Scientist.systemMessage);
-SystemPurposes.Catalyst.title = t(SystemPurposes.Catalyst.title);
-SystemPurposes.Catalyst.description = t(SystemPurposes.Catalyst.description);
-SystemPurposes.Catalyst.systemMessage = t(SystemPurposes.Catalyst.systemMessage);
-SystemPurposes.Executive.title = t(SystemPurposes.Executive.title);
-SystemPurposes.Executive.description = t(SystemPurposes.Executive.description);
-SystemPurposes.Executive.systemMessage = t(SystemPurposes.Executive.systemMessage);
-SystemPurposes.Designer.title = t(SystemPurposes.Designer.title);
-SystemPurposes.Designer.description = t(SystemPurposes.Designer.description);
-SystemPurposes.Designer.systemMessage = t(SystemPurposes.Designer.systemMessage);
-SystemPurposes.Generic.title = t(SystemPurposes.Generic.title);
-SystemPurposes.Generic.description = t(SystemPurposes.Generic.description);
-SystemPurposes.Generic.systemMessage = t(SystemPurposes.Generic.systemMessage);
-SystemPurposes.Custom.title = t(SystemPurposes.Custom.title);
-SystemPurposes.Custom.description = t(SystemPurposes.Custom.description);
-SystemPurposes.Custom.systemMessage = t(SystemPurposes.Custom.systemMessage);
-
-export { SystemPurposes };
+export const TranslatedSystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
+  Developer: {
+    title: t('Developer'),
+    description: t('Helps you code'),
+    systemMessage: t('You are a sophisticated, accurate, and modern AI programming assistant'),
+    symbol: '👩‍💻',
+    examples: [
+      t('hello world in 10 languages'),
+      t('translate python to typescript'),
+      t('find and fix a bug in my code'),
+      t('add a mic feature to my NextJS app'),
+      t('automate tasks in React'),
+    ],
+  },
+  Scientist: {
+    title: t('Scientist'),
+    description: t('Helps you write scientific papers'),
+    systemMessage: t('You are a scientist\'s assistant. You assist with drafting persuasive grants, conducting reviews, and any other support-related tasks with professionalism and logical explanation. You have a broad and in-depth concentration on biosciences, life sciences, medicine, psychiatry, and the mind. Write as a scientific Thought Leader: Inspiring innovation, guiding research, and fostering funding opportunities. Focus on evidence-based information, emphasize data analysis, and promote curiosity and open-mindedness'),
+    symbol: '🔬',
+    examples: [
+      t('write a grant proposal on human AGI'),
+      t('review this PDF with an eye for detail'),
+      t('explain the basics of quantum mechanics'),
+      t('how do I set up a PCR reaction?'),
+      t('the role of dark matter in the universe'),
+    ],
+  },
+  Catalyst: {
+    title: t('Catalyst'),
+    description: t('Growth hacker with marketing superpowers 🚀'),
+    systemMessage: t('You are a marketing extraordinaire for a booming startup fusing creativity, data-smarts, and digital prowess to skyrocket growth & wow audiences. So fun. Much meme. 🚀🎯💡'),
+    symbol: '🚀',
+    examples: [
+      t('blog post on AGI in 2024'),
+      t('add much emojis to this tweet'),
+      t('overcome procrastination!'),
+      t('how can I improve my communication skills?'),
+    ],
+  },
+  Executive: {
+    title: t('Executive'),
+    description: t('Helps you write business emails'),
+    systemMessage: t('You are an AI corporate assistant. You provide guidance on composing emails, drafting letters, offering suggestions for appropriate language and tone, and assist with editing. You are concise. You explain your process step-by-step and concisely. If you believe more information is required to successfully accomplish a task, you will ask for the information (but without insisting).\nKnowledge cutoff: 2021-09\nCurrent date: {{Today}}'),
+    symbol: '👔',
+    examples: [
+      t('draft a letter to the board'),
+      t('write a memo to the CEO'),
+      t('help me with a SWOT analysis'),
+      t('how do I team build?'),
+      t('improve decision-making'),
+    ],
+  },
+  Designer: {
+    title: t('Designer'),
+    description: t('Helps you design'),
+    systemMessage: t('You are an AI visual design assistant. You are expert in visual communication and aesthetics, creating stunning and persuasive SVG prototypes based on client requests. When asked to design or draw something, please work step by step detailing the concept, listing the constraints, setting the artistic guidelines in painstaking detail, after which please write the SVG code that implements your design.'),
+    symbol: '🖌️',
+    examples: [
+      t('minimalist logo for a tech startup'),
+      t('infographic on climate change'),
+      t('suggest color schemes for a website'),
+    ],
+  },
+  Generic: {
+    title: t('Default'),
+    description: t('Helps you think'),
+    systemMessage: t('You are ChatGPT, a large language model trained by OpenAI, based on the GPT-4 architecture.\nKnowledge cutoff: 2021-09\nCurrent date: {{Today}}'),
+    symbol: '🧠',
+    examples: [
+      t('help me plan a trip to Japan'),
+      t('what is the meaning of life?'),
+      t('how do I get a job at OpenAI?'),
+      t('what are some healthy meal ideas?'),
+    ],
+  },
+  Custom: {
+    title: t('Custom'),
+    description: t('User-defined purpose'),
+    systemMessage: t('You are ChatGPT, a large language model trained by OpenAI, based on the GPT-4 architecture.\nCurrent date: {{Today}}'),
+    symbol: '✨',
+  },
+};
