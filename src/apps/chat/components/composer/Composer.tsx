@@ -142,7 +142,7 @@ const SentMessagesMenu = (props: {
 
 Replit
 
-import { ConfirmationModal } from '~/common/components/ConfirmationModal';:
+import { ConfirmationModal } from '~/common/components/ConfirmationModal';
 json
 {
   "Attach a file to the message": "Attach a file to the message",
