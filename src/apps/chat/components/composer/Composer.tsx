@@ -142,22 +142,6 @@ const SentMessagesMenu = (props: {
 
 Replit
 
-import { ConfirmationModal } from '~/common/components/ConfirmationModal';
-json
-{
-  "Attach a file to the message": "Attach a file to the message",
-  "PDF": "PDF",
-  "Text (split manually)": "Text (split manually)",
-  "Code": "Code",
-  "Markdown": "Markdown",
-  "Text": "Text",
-  "As-is": "As-is",
-  "Drag & drop in chat for faster loads ⚡": "Drag & drop in chat for faster loads ⚡",
-  "Converts Code and Tables to 📚 Markdown": "Converts Code and Tables to 📚 Markdown",
-  "CTRL + M": "CTRL + M",
-  "Reuse messages 💬": "Reuse messages 💬",
-  "Clear sent messages history": "Clear sent messages history"
-}
 /**
  * A React component for composing and sending messages in a chat-like interface.
  * Supports pasting text and code from the clipboard, and a local log of sent messages.
