@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
 export type SystemPurposeId = 'Catalyst' | 'Custom' | 'Designer' | 'Developer' | 'Executive' | 'Generic' | 'Scientist';
 
@@ -6,7 +6,7 @@ export const defaultSystemPurposeId: SystemPurposeId = 'Generic';
 
 type SystemPurposeData = {
   title: string;
-  description: string | React.JSX.Element;
+  description: string;
   systemMessage: string;
   symbol: string;
   examples?: string[];
@@ -65,3 +65,29 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
     symbol: '✨',
   },
 };
+
+// 使用useTranslation钩子函数进行翻译
+const { t } = useTranslation();
+SystemPurposes.Developer.title = t(SystemPurposes.Developer.title);
+SystemPurposes.Developer.description = t(SystemPurposes.Developer.description);
+SystemPurposes.Developer.systemMessage = t(SystemPurposes.Developer.systemMessage);
+SystemPurposes.Scientist.title = t(SystemPurposes.Scientist.title);
+SystemPurposes.Scientist.description = t(SystemPurposes.Scientist.description);
+SystemPurposes.Scientist.systemMessage = t(SystemPurposes.Scientist.systemMessage);
+SystemPurposes.Catalyst.title = t(SystemPurposes.Catalyst.title);
+SystemPurposes.Catalyst.description = t(SystemPurposes.Catalyst.description);
+SystemPurposes.Catalyst.systemMessage = t(SystemPurposes.Catalyst.systemMessage);
+SystemPurposes.Executive.title = t(SystemPurposes.Executive.title);
+SystemPurposes.Executive.description = t(SystemPurposes.Executive.description);
+SystemPurposes.Executive.systemMessage = t(SystemPurposes.Executive.systemMessage);
+SystemPurposes.Designer.title = t(SystemPurposes.Designer.title);
+SystemPurposes.Designer.description = t(SystemPurposes.Designer.description);
+SystemPurposes.Designer.systemMessage = t(SystemPurposes.Designer.systemMessage);
+SystemPurposes.Generic.title = t(SystemPurposes.Generic.title);
+SystemPurposes.Generic.description = t(SystemPurposes.Generic.description);
+SystemPurposes.Generic.systemMessage = t(SystemPurposes.Generic.systemMessage);
+SystemPurposes.Custom.title = t(SystemPurposes.Custom.title);
+SystemPurposes.Custom.description = t(SystemPurposes.Custom.description);
+SystemPurposes.Custom.systemMessage = t(SystemPurposes.Custom.systemMessage);
+
+export { SystemPurposes };
