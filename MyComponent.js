@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { SystemPurposes, SystemPurposeId } from './data';
+import { SystemPurposes, SystemPurposeId } from './src/data.ts';
 
 const MyComponent: React.FC = () => {
   const { t } = useTranslation();
