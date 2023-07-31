@@ -1,11 +1,13 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import enTranslation from './src/modules/llms/localai/en/translation.json';
-import zhTranslation from './src/modules/llms/localai/zh/translation.json';
+import enTranslation from './src/modules/llms/localai/en/translation.json'; // 修正路径
+import zhTranslation from './src/modules/llms/localai/zh/translation.json'; // 修正路径
 
-i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
+const i18nInstance = i18n.createInstance();
+
+i18nInstance
+  .use(initReactI18next)
   .init({
     resources: {
       en: {
@@ -17,10 +19,9 @@ i18n
     },
     lng: "zh",
     fallbackLng: "zh",
-
     interpolation: {
-      escapeValue: false
-    }
+      escapeValue: false,
+    },
   });
 
-export default i18n;
+export default i18nInstance;
