@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 export type SystemPurposeId = 'Catalyst' | 'Custom' | 'Designer' | 'Developer' | 'Executive' | 'Generic' | 'Scientist';
@@ -7,7 +7,7 @@ export const defaultSystemPurposeId: SystemPurposeId = 'Generic';
 
 type SystemPurposeData = {
   title: string;
-  description: string | React.JSX.Element;
+  description: string;
   systemMessage: string;
   symbol: string;
   examples?: string[];
@@ -67,28 +67,29 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
   },
 };
 
-export function ToolsSettings() {
-  // 使用 useTranslation 钩子函数
-  const { t } = useTranslation();
+const SystemPurposeList = () => {
+  const { t, i18n } = useTranslation();
+
+  // 更改语言
+  const changeLanguage = (language) => {
+    i18n.changeLanguage(language);
+  };
 
   return (
     <div>
-      {/* 使用 t 函数进行翻译 */}
-      {Object.keys(SystemPurposes).map((key) => (
-        <div key={key}>
-          <h2>{t(SystemPurposes[key].title)}</h2>
-          <p>{t(SystemPurposes[key].description)}</p>
-          <p>{t(SystemPurposes[key].systemMessage)}</p>
-          <p>{t(SystemPurposes[key].symbol)}</p>
-          {SystemPurposes[key].examples && (
-            <ul>
-              {SystemPurposes[key].examples.map((example, index) => (
-                <li key={index}>{t(example)}</li>
-              ))}
-            </ul>
-          )}
-        </div>
-      ))}
+      <button onClick={() => changeLanguage('en')}>English</button>
+      <button onClick={() => changeLanguage('zh')}>中文</button>
+
+      <ul>
+        {Object.entries(SystemPurposes).map(([key, value]) => (
+          <li key={key}>
+            <h2>{t(`${key}.title`)}</h2>
+            <p>{t(`${key}.description`)}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-} // 添加这个关闭括号
+};
+
+export default SystemPurposeList;
