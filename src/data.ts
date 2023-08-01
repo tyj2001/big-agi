@@ -72,7 +72,7 @@ export function ToolsSettings() {
   const { t } = useTranslation();
 
   return (
-    <Stack direction="column" sx={{ gap: settingsGap }}>
+    <div>
       {/* 使用 t 函数进行翻译 */}
       {Object.keys(SystemPurposes).map((key) => (
         <div key={key}>
@@ -89,6 +89,6 @@ export function ToolsSettings() {
           )}
         </div>
       ))}
-    </Stack>
+    </div>
   );
 }
