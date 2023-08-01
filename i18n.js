@@ -1,8 +1,11 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import enTranslation from './src/modules/llms/localai/en/translation.json'; // 修正路径
-import zhTranslation from './src/modules/llms/localai/zh/translation.json'; // 修正路径
+// 根据你的项目结构，修正以下路径
+import enSystemPurposes from './modules/llms/localai/en/systemPurposes.json';
+import zhSystemPurposes from './modules/llms/localai/zh/systemPurposes.json';
+import enTranslation from './modules/llms/localai/en/translation.json';
+import zhTranslation from './modules/llms/localai/zh/translation.json';
 
 const i18nInstance = i18n.createInstance();
 
@@ -11,10 +14,16 @@ i18nInstance
   .init({
     resources: {
       en: {
-        translation: enTranslation,
+        translation: {
+          ...enTranslation,
+          SystemPurposes: enSystemPurposes,
+        },
       },
       zh: {
-        translation: zhTranslation,
+        translation: {
+          ...zhTranslation,
+          SystemPurposes: zhSystemPurposes,
+        },
       },
     },
     lng: "zh",
