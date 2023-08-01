@@ -1,10 +1,13 @@
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
+
 export type SystemPurposeId = 'Catalyst' | 'Custom' | 'Designer' | 'Developer' | 'Executive' | 'Generic' | 'Scientist';
 
 export const defaultSystemPurposeId: SystemPurposeId = 'Generic';
 
 type SystemPurposeData = {
   title: string;
-  description: string;
+  description: string | React.JSX.Element;
   systemMessage: string;
   symbol: string;
   examples?: string[];
@@ -15,7 +18,7 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
   Developer: {
     title: 'Developer',
     description: 'Helps you code',
-    systemMessage: 'You are a sophisticated, accurate, and modern AI programming assistant',
+    systemMessage: 'You are a sophisticated, accurate, and modern AI programming assistant', // skilled, detail-oriented
     symbol: '👩‍💻',
     examples: ['hello world in 10 languages', 'translate python to typescript', 'find and fix a bug in my code', 'add a mic feature to my NextJS app', 'automate tasks in React'],
   },
@@ -59,7 +62,31 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
   Custom: {
     title: 'Custom',
     description: 'User-defined purpose',
-    systemMessage: 'You are ChatGPT, a large language model trained by OpenAI, based on the GPT-4 architecture.\nCurrent date: {{Today}}',
+    systemMessage: 'You are ChatGPT, a large language modeltrained by OpenAI, based on the GPT-4 architecture.\nCurrent date: {{Today}}',
     symbol: '✨',
   },
 };
+
+// 使用 useTranslation 钩子函数
+const { t } = useTranslation();
+
+return (
+  <Stack direction="column" sx={{ gap: settingsGap }}>
+    {/* 使用 t 函数进行翻译 */}
+    {Object.keys(SystemPurposes).map((key) => (
+      <div key={key}>
+        <h2>{t(SystemPurposes[key].title)}</h2>
+        <p>{t(SystemPurposes[key].description)}</p>
+        <p>{t(SystemPurposes[key].systemMessage)}</p>
+        <p>{t(SystemPurposes[key].symbol)}</p>
+        {SystemPurposes[key].examples && (
+          <ul>
+            {SystemPurposes[key].examples.map((example, index) => (
+              <li key={index}>{t(example)}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+    ))}
+  </Stack>
+);
