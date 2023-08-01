@@ -24,20 +24,43 @@ const useSystemPurposes = () => {
       systemMessage: t('SystemPurposes.Developer.systemMessage'),
       symbol: t('SystemPurposes.Developer.symbol')
     },
-    // 为其他 SystemPurposeId 添加相应的翻译，用逗号分隔
+    Scientist: {
+      title: t('SystemPurposes.Scientist.title'),
+      description: t('SystemPurposes.Scientist.description'),
+      systemMessage: t('SystemPurposes.Scientist.systemMessage'),
+      symbol: t('SystemPurposes.Scientist.symbol')
+    },
     Catalyst: {
       title: t('SystemPurposes.Catalyst.title'),
       description: t('SystemPurposes.Catalyst.description'),
       systemMessage: t('SystemPurposes.Catalyst.systemMessage'),
       symbol: t('SystemPurposes.Catalyst.symbol')
     },
-    // 继续添加其他 SystemPurposeId 的翻译
+    Executive: {
+      title: t('SystemPurposes.Executive.title'),
+      description: t('SystemPurposes.Executive.description'),
+      systemMessage: t('SystemPurposes.Executive.systemMessage'),
+      symbol: t('SystemPurposes.Executive.symbol')
+    },
+    Designer: {
+      title: t('SystemPurposes.Designer.title'),
+      description: t('SystemPurposes.Designer.description'),
+      systemMessage: t('SystemPurposes.Designer.systemMessage'),
+      symbol: t('SystemPurposes.Designer.symbol')
+    },
+    Generic: {
+      title: t('SystemPurposes.Generic.title'),
+      description: t('SystemPurposes.Generic.description'),
+      systemMessage: t('SystemPurposes.Generic.systemMessage'),
+      symbol: t('SystemPurposes.Generic.symbol')
+    },
+    Custom: {
+      title: t('SystemPurposes.Custom.title'),
+      description: t('SystemPurposes.Custom.description'),
+      systemMessage: t('SystemPurposes.Custom.systemMessage'),
+      symbol: t('SystemPurposes.Custom.symbol')
+    }
   };
-
-  return SystemPurposes;
-};
- 
-export default useSystemPurposes;
 
   return SystemPurposes;
 };
