@@ -24,9 +24,20 @@ const useSystemPurposes = () => {
       systemMessage: t('SystemPurposes.Developer.systemMessage'),
       symbol: t('SystemPurposes.Developer.symbol')
     },
-    // 为其他 SystemPurposeId 添加相应的翻译
-    ...
+    // 为其他 SystemPurposeId 添加相应的翻译，用逗号分隔
+    Catalyst: {
+      title: t('SystemPurposes.Catalyst.title'),
+      description: t('SystemPurposes.Catalyst.description'),
+      systemMessage: t('SystemPurposes.Catalyst.systemMessage'),
+      symbol: t('SystemPurposes.Catalyst.symbol')
+    },
+    // 继续添加其他 SystemPurposeId 的翻译
   };
+
+  return SystemPurposes;
+};
+ 
+export default useSystemPurposes;
 
   return SystemPurposes;
 };
