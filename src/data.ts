@@ -1,5 +1,4 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import * as React from 'react';
 
 export type SystemPurposeId = 'Catalyst' | 'Custom' | 'Designer' | 'Developer' | 'Executive' | 'Generic' | 'Scientist';
 
@@ -7,7 +6,7 @@ export const defaultSystemPurposeId: SystemPurposeId = 'Generic';
 
 type SystemPurposeData = {
   title: string;
-  description: string;
+  description: string | React.JSX.Element;
   systemMessage: string;
   symbol: string;
   examples?: string[];
@@ -18,7 +17,7 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
   Developer: {
     title: 'Developer',
     description: 'Helps you code',
-    systemMessage: 'You are a sophisticated, accurate, and modern AI programming assistant',
+    systemMessage: 'You are a sophisticated, accurate, and modern AI programming assistant', // skilled, detail-oriented
     symbol: '👩‍💻',
     examples: ['hello world in 10 languages', 'translate python to typescript', 'find and fix a bug in my code', 'add a mic feature to my NextJS app', 'automate tasks in React'],
   },
@@ -66,30 +65,3 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
     symbol: '✨',
   },
 };
-
-const SystemPurposeList = () => {
-  const { t, i18n } = useTranslation();
-
-  // 更改语言
-  const changeLanguage = (language) => {
-    i18n.changeLanguage(language);
-  };
-
-  return (
-    <div>
-      <button onClick={() => changeLanguage('en')}>English</button>
-      <button onClick={() => changeLanguage('zh')}>中文</button>
-
-      <ul>
-        {Object.entries(SystemPurposes).map(([key, value]) => (
-          <li key={key}>
-            <h2>{t(`${key}.title`)}</h2>
-            <p>{t(`${key}.description`)}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
-export default SystemPurposeList;
