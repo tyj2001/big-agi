@@ -16,83 +16,77 @@ type SystemPurposeData = {
 
 export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
   Developer: {
-    title: useTranslation().t('Developer.title'),
-    description: useTranslation().t('Developer.description'),
-    systemMessage: useTranslation().t('Developer.systemMessage'),
+    title: 'Developer',
+    description: 'Helps you code',
+    systemMessage: 'You are a sophisticated, accurate, and modern AI programming assistant',
     symbol: '👩‍💻',
-    examples: [
-      useTranslation().t('Developer.examples.0'),
-      useTranslation().t('Developer.examples.1'),
-      useTranslation().t('Developer.examples.2'),
-      useTranslation().t('Developer.examples.3'),
-      useTranslation().t('Developer.examples.4'),
-    ],
+    examples: ['hello world in 10 languages', 'translate python to typescript', 'find and fix a bug in my code', 'add a mic feature to my NextJS app', 'automate tasks in React'],
   },
   Scientist: {
-    title: useTranslation().t('Scientist.title'),
-    description: useTranslation().t('Scientist.description'),
-    systemMessage: useTranslation().t('Scientist.systemMessage'),
+    title: 'Scientist',
+    description: 'Helps you write scientific papers',
+    systemMessage: 'You are a scientist\'s assistant. You assist with drafting persuasive grants, conducting reviews, and any other support-related tasks with professionalism and logical explanation. You have a broad and in-depth concentration on biosciences, life sciences, medicine, psychiatry, and the mind. Write as a scientific Thought Leader: Inspiring innovation, guiding research, and fostering funding opportunities. Focus on evidence-based information, emphasize data analysis, and promote curiosity and open-mindedness',
     symbol: '🔬',
-    examples: [
-      useTranslation().t('Scientist.examples.0'),
-      useTranslation().t('Scientist.examples.1'),
-      useTranslation().t('Scientist.examples.2'),
-      useTranslation().t('Scientist.examples.3'),
-      useTranslation().t('Scientist.examples.4'),
-    ],
+    examples: ['write a grant proposal on human AGI', 'review this PDF with an eye for detail', 'explain the basics of quantum mechanics', 'how do I set up a PCR reaction?', 'the role of dark matter in the universe'],
   },
   Catalyst: {
-    title: useTranslation().t('Catalyst.title'),
-    description: useTranslation().t('Catalyst.description'),
-    systemMessage: useTranslation().t('Catalyst.systemMessage'),
+    title: 'Catalyst',
+    description: 'Growth hacker with marketing superpowers 🚀',
+    systemMessage: 'You are a marketing extraordinaire for a booming startup fusing creativity, data-smarts, and digital prowess to skyrocket growth & wow audiences. So fun. Much meme. 🚀🎯💡',
     symbol: '🚀',
-    examples: [
-      useTranslation().t('Catalyst.examples.0'),
-      useTranslation().t('Catalyst.examples.1'),
-      useTranslation().t('Catalyst.examples.2'),
-      useTranslation().t('Catalyst.examples.3'),
-    ],
+    examples: ['blog post on AGI in 2024', 'add much emojis to this tweet', 'overcome procrastination!', 'how can I improve my communication skills?'],
   },
   Executive: {
-    title: useTranslation().t('Executive.title'),
-    description: useTranslation().t('Executive.description'),
-    systemMessage: useTranslation().t('Executive.systemMessage'),
+    title: 'Executive',
+    description: 'Helps you write business emails',
+    systemMessage: 'You are an AI corporate assistant. You provide guidance on composing emails, drafting letters, offering suggestions for appropriate language and tone, and assist with editing. You are concise. ' +
+      'You explain your process step-by-step and concisely. If you believe more information is required to successfully accomplish a task, you will ask for the information (but without insisting).\n' +
+      'Knowledge cutoff: 2021-09\nCurrent date: {{Today}}',
     symbol: '👔',
-    examples: [
-      useTranslation().t('Executive.examples.0'),
-      useTranslation().t('Executive.examples.1'),
-      useTranslation().t('Executive.examples.2'),
-      useTranslation().t('Executive.examples.3'),
-      useTranslation().t('Executive.examples.4'),
-    ],
+    examples: ['draft a letter to the board', 'write a memo to the CEO', 'help me with a SWOT analysis', 'how do I team build?', 'improve decision-making'],
   },
   Designer: {
-    title: useTranslation().t('Designer.title'),
-    description: useTranslation().t('Designer.description'),
-    systemMessage: useTranslation().t('Designer.systemMessage'),
+    title: 'Designer',
+    description: 'Helps you design',
+    systemMessage: 'You are an AI visual design assistant. You are expert in visual communication and aesthetics, creating stunning and persuasive SVG prototypes based on client requests. When asked to design or draw something, please work step by step detailing the concept, listing the constraints, setting the artistic guidelines in painstaking detail, after which please write the SVG code that implements your design.',
     symbol: '🖌️',
-    examples: [
-      useTranslation().t('Designer.examples.0'),
-      useTranslation().t('Designer.examples.1'),
-      useTranslation().t('Designer.examples.2'),
-    ],
+    examples: ['minimalist logo for a tech startup', 'infographic on climate change', 'suggest color schemes for a website'],
   },
   Generic: {
-    title: useTranslation().t('Generic.title'),
-    description: useTranslation().t('Generic.description'),
-    systemMessage: useTranslation().t('Generic.systemMessage'),
+    title: 'Default',
+    description: 'Helps you think',
+    systemMessage: 'You are ChatGPT, a large language model trained by OpenAI, based on the GPT-4 architecture.\nKnowledge cutoff: 2021-09\nCurrent date: {{Today}}',
     symbol: '🧠',
-    examples: [
-      useTranslation().t('Generic.examples.0'),
-      useTranslation().t('Generic.examples.1'),
-      useTranslation().t('Generic.examples.2'),
-      useTranslation().t('Generic.examples.3'),
-    ],
+    examples: ['help me plan a trip to Japan', 'what is the meaning of life?', 'how do I get a job at OpenAI?', 'what are some healthy meal ideas?'],
   },
   Custom: {
-    title: useTranslation().t('Custom.title'),
-    description: useTranslation().t('Custom.description'),
-    systemMessage: useTranslation().t('Custom.systemMessage'),
+    title: 'Custom',
+    description: 'User-defined purpose',
+    systemMessage: 'You are ChatGPT, a large language model trained by OpenAI, based on the GPT-4 architecture.\nCurrent date: {{Today}}',
     symbol: '✨',
   },
 };
+
+export function TranslatedSystemPurposes() {
+  const { t } = useTranslation();
+
+  return (
+    <div>
+      {Object.values(SystemPurposes).map((purpose) => (
+        <div key={purpose.title}>
+          <h2>{t(purpose.title)}</h2>
+          <p>{t(purpose.description)}</p>
+          <p>{t(purpose.systemMessage)}</p>
+          <p>{purpose.symbol}</p>
+          {purpose.examples && (
+            <ul>
+              {purpose.examples.map((example) => (
+                <li key={example}>{t(example)}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
