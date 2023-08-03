@@ -34,7 +34,7 @@ const ExampleComponent = () => {
       <button onClick={() => changeLanguage('zh')}>中文</button>
 
       {Object.keys(SystemPurposes).map((key) => (
-        <RenderSystemPurpose key={key} key={key} />
+        <RenderSystemPurpose key={key} />
       ))}
     </div>
   );
