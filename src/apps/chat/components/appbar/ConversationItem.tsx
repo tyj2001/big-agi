@@ -76,7 +76,8 @@ export function ConversationItem(props: {
 
   const handleDeleteCancel = () => setDeleteArmed(false);
 
-  const textSymbol = SystemPurposes[systemPurposeId]?.symbol || '❓';
+  const { t } = useTranslation();
+  const textSymbol = t(`SystemPurposes.${systemPurposeId}.symbol`) || '❓';
   const buttonSx: SxProps = { ml: 1, ...(props.isActive ? { color: 'white' } : {}) };
 
   return (
