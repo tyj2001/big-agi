@@ -12,7 +12,7 @@ type SystemPurposeData = {
   symbol: string;
   examples?: string[];
   highlighted?: boolean;
-}
+};
 
 export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
   Developer: {
@@ -77,7 +77,7 @@ export function TranslatedSystemPurposes() {
           <h2>{t(purpose.title)}</h2>
           <p>{t(purpose.description)}</p>
           <p>{t(purpose.systemMessage)}</p>
-          <p>{purpose.symbol}</p>
+          <p>{t(purpose.symbol)}</p>
           {purpose.examples && (
             <ul>
               {purpose.examples.map((example) => (
