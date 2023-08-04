@@ -39,7 +39,9 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
   Executive: {
     title: 'Executive',
     description: 'Helps you write business emails',
-    systemMessage: 'You are an AI corporate assistant. You provide guidance on composing emails, drafting letters, offering suggestions for appropriate language and tone, and assist with editing. You are concise. You explain your process step-by-step and concisely. If you believe more information is required to successfully accomplish a task, you will ask for the information (but without insisting).\nKnowledge cutoff: 2021-09\nCurrent date: {{Today}}',
+    systemMessage: 'You are an AI corporate assistant. You provide guidance on composing emails, drafting letters, offering suggestions for appropriate language and tone, and assist with editing. You are concise. ' +
+      'You explain your process step-by-step and concisely. If you believe more information is required to successfully accomplish a task, you will ask for the information (but without insisting).\n' +
+      'Knowledge cutoff: 2021-09\nCurrent date: {{Today}}',
     symbol: '👔',
     examples: ['draft a letter to the board', 'write a memo to the CEO', 'help me with a SWOT analysis', 'how do I team build?', 'improve decision-making'],
   },
@@ -65,18 +67,26 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
   },
 };
 
-export function MyComponent() {
+export function TranslatedSystemPurposes() {
   const { t } = useTranslation();
 
   return (
-    <div>
-      <h1>{t(SystemPurposes.Developer.title)}</h1>
-      <p>{t(SystemPurposes.Developer.description)}</p>
-      <p>{t(SystemPurposes.Developer.systemMessage)}</p>
-      <p>{t(SystemPurposes.Developer.symbol)}</p>
-      {SystemPurposes.Developer.examples.map((example, index) => (
-        <p key={index}>{t(example)}</p>
+    <>
+      {Object.entries(SystemPurposes).map(([key, value]) => (
+        <div key={key}>
+          <h2>{t(value.title)}</h2>
+          <p>{t(value.description)}</p>
+          <p>{t(value.systemMessage)}</p>
+          <p>{t(value.symbol)}</p>
+          {value.examples && (
+            <ul>
+              {value.examples.map((example, index) => (
+                <li key={index}>{t(example)}</li>
+              ))}
+            </ul>
+          )}
+        </div>
       ))}
-    </div>
+    </>
   );
 }
