@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 
 export type SystemPurposeId = 'Catalyst' | 'Custom' | 'Designer' | 'Developer' | 'Executive' | 'Generic' | 'Scientist';
 
@@ -18,7 +17,7 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
   Developer: {
     title: 'Developer',
     description: 'Helps you code',
-    systemMessage: 'You are a sophisticated, accurate, and modern AI programming assistant',
+    systemMessage: 'You are a sophisticated, accurate, and modern AI programming assistant', // skilled, detail-oriented
     symbol: '👩‍💻',
     examples: ['hello world in 10 languages', 'translate python to typescript', 'find and fix a bug in my code', 'add a mic feature to my NextJS app', 'automate tasks in React'],
   },
@@ -66,28 +65,4 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
     symbol: '✨',
   },
 };
-
-export function TranslatedSystemPurposes() {
-  const { t } = useTranslation();
-
-  return (
-    <>
-      {Object.entries(SystemPurposes).map(([key, value]) => (
-        <div key={key}>
-          <h2>{t(value.title)}</h2>
-          <p>{t(value.description)}</p>
-          <p>{t(value.systemMessage)}</p>
-          <p>{t(value.symbol)}</p>
-          {value.examples && (
-            <ul>
-              {value.examples.map((example, index) => (
-                <li key={index}>{t(example)}</li>
-              ))}
-            </ul>
-          )}
-        </div>
-      ))}
-    </>
-  );
-}
 
