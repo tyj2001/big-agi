@@ -68,7 +68,7 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
 };
 
 // 导入 translation.json 文件
-import translationData from 'src/modules/llms/localai/zh/translation.json';
+import translationData from './modules/llms/localai/zh/translation.json';
 
 export function translateSystemPurposes(t: Function) {
   const translatedSystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
@@ -130,6 +130,3 @@ export function translateSystemPurposes(t: Function) {
 
   return translatedSystemPurposes;
 }
-
-
-
