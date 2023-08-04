@@ -119,8 +119,8 @@ const translationKeys = {
   },
 };
 
-export function translateSystemPurposes(t) {
-  const translatedSystemPurposes = {};
+export function translateSystemPurposes(t: Function) {
+  const translatedSystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {};
 
   for (const key in SystemPurposes) {
     const systemPurpose = SystemPurposes[key];
