@@ -9,7 +9,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { DConversation, useChatStore } from '~/common/state/store-chats';
 import { InlineTextarea } from '~/common/components/InlineTextarea';
 import { useUIPreferencesStore } from '~/common/state/store-ui';
-import { SystemPurposes } from '../../../../data';
+import { useTranslation } from 'react-i18next';
 
 
 const DEBUG_CONVERSATION_IDs = false;
