@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
 export type SystemPurposeId = 'Catalyst' | 'Custom' | 'Designer' | 'Developer' | 'Executive' | 'Generic' | 'Scientist';
 
@@ -17,7 +18,7 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
   Developer: {
     title: 'Developer',
     description: 'Helps you code',
-    systemMessage: 'You are a sophisticated, accurate, and modern AI programming assistant', // skilled, detail-oriented
+    systemMessage: 'You are a sophisticated, accurate, and modern AI programming assistant',
     symbol: '👩‍💻',
     examples: ['hello world in 10 languages', 'translate python to typescript', 'find and fix a bug in my code', 'add a mic feature to my NextJS app', 'automate tasks in React'],
   },
@@ -65,4 +66,77 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
     symbol: '✨',
   },
 };
+
+// Import translation keys
+const translationKeys = {
+  Developer: {
+    title: 'Developer.title',
+    description: 'Developer.description',
+    systemMessage: 'Developer.systemMessage',
+    symbol: 'Developer.symbol',
+    examples: 'Developer.examples',
+  },
+  Scientist: {
+    title: 'Scientist.title',
+    description: 'Scientist.description',
+    systemMessage: 'Scientist.systemMessage',
+    symbol: 'Scientist.symbol',
+    examples: 'Scientist.examples',
+  },
+  Catalyst: {
+    title: 'Catalyst.title',
+    description: 'Catalyst.description',
+    systemMessage: 'Catalyst.systemMessage',
+    symbol: 'Catalyst.symbol',
+    examples: 'Catalyst.examples',
+  },
+  Executive: {
+    title: 'Executive.title',
+    description: 'Executive.description',
+    systemMessage: 'Executive.systemMessage',
+    symbol: 'Executive.symbol',
+    examples: 'Executive.examples',
+  },
+  Designer: {
+    title: 'Designer.title',
+    description: 'Designer.description',
+    systemMessage: 'Designer.systemMessage',
+    symbol: 'Designer.symbol',
+    examples: 'Designer.examples',
+  },
+  Generic: {
+    title: 'Generic.title',
+    description: 'Generic.description',
+    systemMessage: 'Generic.systemMessage',
+    symbol: 'Generic.symbol',
+    examples: 'Generic.examples',
+  },
+  Custom: {
+    title: 'Custom.title',
+    description: 'Custom.description',
+    systemMessage: 'Custom.systemMessage',
+    symbol: 'Custom.symbol',
+  },
+};
+
+export function translateSystemPurposes(t) {
+  const translatedSystemPurposes = {};
+
+  for (const key in SystemPurposes) {
+    const systemPurpose = SystemPurposes[key];
+    const translationKey = translationKeys[key];
+
+    translatedSystemPurposes[key] = {
+      title: t(translationKey.title),
+      description: t(translationKey.description),
+      systemMessage: t(translationKey.systemMessage),
+      symbol: t(translationKey.symbol),
+      examples: systemPurpose.examples ? systemPurpose.examples.map(example => t(example)) : undefined,
+      highlighted: systemPurpose.highlighted,
+    };
+  }
+
+  return translatedSystemPurposes;
+}
+
 
