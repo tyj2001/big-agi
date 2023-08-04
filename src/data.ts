@@ -64,6 +64,7 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
     description: 'User-defined purpose',
     systemMessage: 'You are ChatGPT, a large language model trained by OpenAI, based on the GPT-4 architecture.\nCurrent date: {{Today}}',
     symbol: '✨',
+    examples: [],
   },
 };
 
@@ -77,7 +78,7 @@ export function TranslatedSystemPurposes() {
           <h2>{t(purpose.title)}</h2>
           <p>{t(purpose.description)}</p>
           <p>{t(purpose.systemMessage)}</p>
-          <p>{t(purpose.symbol)}</p>
+          <p>{purpose.symbol}</p>
           {purpose.examples && (
             <ul>
               {purpose.examples.map((example) => (
