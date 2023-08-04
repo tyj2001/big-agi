@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import enTranslation from './src/modules/llms/localai/en/translation.json';
+import zhTranslation from './src/modules/llms/localai/zh/translation.json';
 
 export type SystemPurposeId = 'Catalyst' | 'Custom' | 'Designer' | 'Developer' | 'Executive' | 'Generic' | 'Scientist';
 
@@ -67,62 +69,59 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
   },
 };
 
-// 导入 translation.json 文件
-import translationData from './modules/llms/localai/zh/translation.json';
-
 export function translateSystemPurposes(t: Function) {
   const translatedSystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
     Catalyst: {
-      title: t(translationData.Catalyst.title),
-      description: t(translationData.Catalyst.description),
-      systemMessage: t(translationData.Catalyst.systemMessage),
-      symbol: t(translationData.Catalyst.symbol),
+      title: t(translationKeys.Catalyst.title),
+      description: t(translationKeys.Catalyst.description),
+      systemMessage: t(translationKeys.Catalyst.systemMessage),
+      symbol: t(translationKeys.Catalyst.symbol),
       examples: SystemPurposes.Catalyst.examples ? SystemPurposes.Catalyst.examples.map(example => t(example)) : undefined,
       highlighted: SystemPurposes.Catalyst.highlighted,
     },
     Custom: {
-      title: t(translationData.Custom.title),
-      description: t(translationData.Custom.description),
-      systemMessage: t(translationData.Custom.systemMessage),
-      symbol: t(translationData.Custom.symbol),
+      title: t(translationKeys.Custom.title),
+      description: t(translationKeys.Custom.description),
+      systemMessage: t(translationKeys.Custom.systemMessage),
+      symbol: t(translationKeys.Custom.symbol),
     },
     Designer: {
-      title: t(translationData.Designer.title),
-      description: t(translationData.Designer.description),
-      systemMessage: t(translationData.Designer.systemMessage),
-      symbol: t(translationData.Designer.symbol),
+      title: t(translationKeys.Designer.title),
+      description: t(translationKeys.Designer.description),
+      systemMessage: t(translationKeys.Designer.systemMessage),
+      symbol: t(translationKeys.Designer.symbol),
       examples: SystemPurposes.Designer.examples ? SystemPurposes.Designer.examples.map(example => t(example)) : undefined,
       highlighted: SystemPurposes.Designer.highlighted,
     },
     Developer: {
-      title: t(translationData.Developer.title),
-      description: t(translationData.Developer.description),
-      systemMessage: t(translationData.Developer.systemMessage),
-      symbol: t(translationData.Developer.symbol),
+      title: t(translationKeys.Developer.title),
+      description: t(translationKeys.Developer.description),
+      systemMessage: t(translationKeys.Developer.systemMessage),
+      symbol: t(translationKeys.Developer.symbol),
       examples: SystemPurposes.Developer.examples ? SystemPurposes.Developer.examples.map(example => t(example)) : undefined,
       highlighted: SystemPurposes.Developer.highlighted,
     },
     Executive: {
-      title: t(translationData.Executive.title),
-      description: t(translationData.Executive.description),
-      systemMessage: t(translationData.Executive.systemMessage),
-      symbol: t(translationData.Executive.symbol),
+      title: t(translationKeys.Executive.title),
+      description: t(translationKeys.Executive.description),
+      systemMessage: t(translationKeys.Executive.systemMessage),
+      symbol: t(translationKeys.Executive.symbol),
       examples: SystemPurposes.Executive.examples ? SystemPurposes.Executive.examples.map(example => t(example)) : undefined,
       highlighted: SystemPurposes.Executive.highlighted,
     },
     Generic: {
-      title: t(translationData.Generic.title),
-      description: t(translationData.Generic.description),
-      systemMessage: t(translationData.Generic.systemMessage),
-      symbol: t(translationData.Generic.symbol),
+      title: t(translationKeys.Generic.title),
+      description: t(translationKeys.Generic.description),
+      systemMessage: t(translationKeys.Generic.systemMessage),
+      symbol: t(translationKeys.Generic.symbol),
       examples: SystemPurposes.Generic.examples ? SystemPurposes.Generic.examples.map(example => t(example)) : undefined,
       highlighted: SystemPurposes.Generic.highlighted,
     },
     Scientist: {
-      title: t(translationData.Scientist.title),
-      description: t(translationData.Scientist.description),
-      systemMessage: t(translationData.Scientist.systemMessage),
-      symbol: t(translationData.Scientist.symbol),
+      title: t(translationKeys.Scientist.title),
+      description: t(translationKeys.Scientist.description),
+      systemMessage: t(translationKeys.Scientist.systemMessage),
+      symbol: t(translationKeys.Scientist.symbol),
       examples: SystemPurposes.Scientist.examples ? SystemPurposes.Scientist.examples.map(example => t(example)) : undefined,
       highlighted: SystemPurposes.Scientist.highlighted,
     },
@@ -130,3 +129,4 @@ export function translateSystemPurposes(t: Function) {
 
   return translatedSystemPurposes;
 }
+
