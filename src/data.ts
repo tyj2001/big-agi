@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 export type SystemPurposeId = 'Catalyst' | 'Custom' | 'Designer' | 'Developer' | 'Executive' | 'Generic' | 'Scientist';
@@ -14,83 +14,61 @@ type SystemPurposeData = {
   highlighted?: boolean;
 }
 
-export const SystemPurposes: { [key in SystemPurposeId]: () => SystemPurposeData } = {
-  Developer: () => {
-    const { t } = useTranslation();
-    return {
-      title: t('Developer.title'),
-      description: t('Developer.description'),
-      systemMessage: t('Developer.systemMessage'),
-      symbol: '👩‍💻',
-      examples: t('Developer.examples', { returnObjects: true })
-    };
-  },
-  Scientist: () => {
-    const { t } = useTranslation();
-    return {
-      title: t('Scientist.title'),
-      description: t('Scientist.description'),
-      systemMessage: t('Scientist.systemMessage'),
-      symbol: '🔬',
-      examples: t('Scientist.examples', { returnObjects: true })
-    };
-  },
-  Catalyst: () => {
-    const { t } = useTranslation();
-    return {
-      title: t('Catalyst.title'),
-      description: t('Catalyst.description'),
-      systemMessage: t('Catalyst.systemMessage'),
-      symbol: '🚀',
-      examples: t('Catalyst.examples', { returnObjects: true })
-    };
-  },
-  Executive: () => {
-    const { t } = useTranslation();
-    return {
-      title: t('Executive.title'),
-      description: t('Executive.description'),
-      systemMessage: t('Executive.systemMessage'),
-      symbol: '👔',
-      examples: t('Executive.examples', { returnObjects: true })
-    };
-  },
-  Designer: () => {
-    const { t } = useTranslation();
-    return {
-      title: t('Designer.title'),
-      description: t('Designer.description'),
-      systemMessage: t('Designer.systemMessage'),
-      symbol: '🖌️',
-      examples: t('Designer.examples', { returnObjects: true })
-    };
-  },
-  Generic: () => {
-    const { t } = useTranslation();
-    return {
-      title: t('Generic.title'),
-      description: t('Generic.description'),
-      systemMessage: t('Generic.systemMessage'),
-      symbol: '🧠',
-      examples: t('Generic.examples', { returnObjects: true })
-    };
-  },
-  Custom: () => {
-    const { t } = useTranslation();
-    return {
-      title: t('Custom.title'),
-      description: t('Custom.description'),
-      systemMessage: t('Custom.systemMessage'),
-      symbol: '✨',
-    };
-  },
-};
+function SystemPurposesComponent() {
+  const { t } = useTranslation();
 
-// In your other component file where you are trying to use SystemPurposes
-// Import SystemPurposes and use it like this:
+  const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
+    Developer: {
+      title: t('SystemPurposes.Developer.title'),
+      description: t('SystemPurposes.Developer.description'),
+      systemMessage: t('SystemPurposes.Developer.systemMessage'),
+      symbol: t('SystemPurposes.Developer.symbol'),
+      examples: t('SystemPurposes.Developer.examples', { returnObjects: true }),
+    },
+    Scientist: {
+      title: t('SystemPurposes.Scientist.title'),
+      description: t('SystemPurposes.Scientist.description'),
+      systemMessage: t('SystemPurposes.Scientist.systemMessage'),
+      symbol: t('SystemPurposes.Scientist.symbol'),
+      examples: t('SystemPurposes.Scientist.examples', { returnObjects: true }),
+    },
+    Catalyst: {
+      title: t('SystemPurposes.Catalyst.title'),
+      description: t('SystemPurposes.Catalyst.description'),
+      systemMessage: t('SystemPurposes.Catalyst.systemMessage'),
+      symbol: t('SystemPurposes.Catalyst.symbol'),
+      examples: t('SystemPurposes.Catalyst.examples', { returnObjects: true }),
+    },
+    Executive: {
+      title: t('SystemPurposes.Executive.title'),
+      description: t('SystemPurposes.Executive.description'),
+      systemMessage: t('SystemPurposes.Executive.systemMessage'),
+      symbol: t('SystemPurposes.Executive.symbol'),
+      examples: t('SystemPurposes.Executive.examples', { returnObjects: true }),
+    },
+    Designer: {
+      title: t('SystemPurposes.Designer.title'),
+      description: t('SystemPurposes.Designer.description'),
+      systemMessage: t('SystemPurposes.Designer.systemMessage'),
+      symbol: t('SystemPurposes.Designer.symbol'),
+      examples: t('SystemPurposes.Designer.examples', { returnObjects: true }),
+    },
+    Generic: {
+      title: t('SystemPurposes.Generic.title'),
+      description: t('SystemPurposes.Generic.description'),
+      systemMessage: t('SystemPurposes.Generic.systemMessage'),
+      symbol: t('SystemPurposes.Generic.symbol'),
+      examples: t('SystemPurposes.Generic.examples', { returnObjects: true }),
+    },
+    Custom: {
+      title: t('SystemPurposes.Custom.title'),
+      description: t('SystemPurposes.Custom.description'),
+      systemMessage: t('SystemPurposes.Custom.systemMessage'),
+      symbol: t('SystemPurposes.Custom.symbol'),
+    },
+  };
 
-// import { SystemPurposes } from './path_to_your_file';
+  // 在这里使用SystemPurposes...
+}
 
-// Inside your component:
-const systemPurposeData = SystemPurposes[systemPurposeId]();
-const textSymbol = systemPurposeData?.symbol || '❓';
+export default SystemPurposesComponent;
