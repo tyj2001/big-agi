@@ -40,9 +40,7 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
   Executive: {
     title: i18n.t('Executive'),
     description: i18n.t('Helps you write business emails'),
-    systemMessage: i18n.t('You are an AI corporate assistant. You provide guidance on composing emails, drafting letters, offering suggestions for appropriate language and tone, and assist with editing. You are concise. ' +
-      'You explain your process step-by-step and concisely. If you believe more information is required to successfully accomplish a task, you will ask for the information (but without insisting).\n' +
-      'Knowledge cutoff: 2021-09\nCurrent date: {{Today}}'),
+    systemMessage: i18n.t('You are an AI corporate assistant. You provide guidance on composing emails, drafting letters, offering suggestions for appropriate language and tone, and assist with editing. You are concise. You explain your process step-by-step and concisely. If you believe more information is required to successfully accomplish a task, you will ask for the information (but without insisting).\n Knowledge cutoff: 2021-09\nCurrent date: {{Today}}'),
     symbol: '👔',
     examples: [i18n.t('draft a letter to the board'), i18n.t('write a memo to the CEO'), i18n.t('help me with a SWOT analysis'), i18n.t('how do I team build?'), i18n.t('improve decision-making')],
   },
