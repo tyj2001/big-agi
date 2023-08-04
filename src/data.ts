@@ -68,3 +68,12 @@ export function SystemPurposes() {
     },
   } as { [key in SystemPurposeId]: SystemPurposeData };
 }
+
+// In your other component file where you are trying to use SystemPurposes
+// Import SystemPurposes and use it like this:
+
+// import { SystemPurposes } from './path_to_your_file';
+
+// Inside your component:
+const systemPurposes = SystemPurposes();
+const textSymbol = systemPurposes[systemPurposeId]?.symbol || '❓';
