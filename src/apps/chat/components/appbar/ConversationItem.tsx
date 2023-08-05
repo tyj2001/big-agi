@@ -25,7 +25,7 @@ export function ConversationItem(props: {
   conversationActivate: (conversationId: string) => void,
   conversationDelete: (conversationId: string) => void,
 }) {
-
+ const { t } = useTranslation();
   // state
   const [isEditingTitle, setIsEditingTitle] = React.useState(false);
   const [deleteArmed, setDeleteArmed] = React.useState(false);
@@ -76,7 +76,7 @@ export function ConversationItem(props: {
 
   const handleDeleteCancel = () => setDeleteArmed(false);
 
-  const { t } = useTranslation();
+ 
   const textSymbol = t(`SystemPurposes.${systemPurposeId}.symbol`) || '❓';
   const buttonSx: SxProps = { ml: 1, ...(props.isActive ? { color: 'white' } : {}) };
 
