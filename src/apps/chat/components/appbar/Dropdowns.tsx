@@ -37,6 +37,9 @@ export function Dropdowns(props: {
     openLLMOptions: state.openLLMOptions, openModelsSetup: state.openModelsSetup,
   }), shallow);
 
+  // Translation hook
+  const { t } = useTranslation();
+
   const handleChatModelChange = (event: any, value: DLLMId | null) =>
     value && props.conversationId && setChatLLMId(value);
 
@@ -94,7 +97,7 @@ export function Dropdowns(props: {
     {/* Persona selector */}
     {systemPurposeId && (
       <AppBarDropdown
-        items={SystemPurposes} showSymbols={zenMode !== 'cleaner'}
+        items={t(`SystemPurposes.${systemPurposeId}`)} showSymbols={zenMode !== 'cleaner'}
         value={systemPurposeId} onChange={handleSystemPurposeChange}
       />
     )}
