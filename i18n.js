@@ -14,13 +14,13 @@ i18nInstance
       en: {
         translation: {
           ...enTranslation,
-          SystemPurposes: enSystemPurposes,
+         
         },
       },
       zh: {
         translation: {
           ...zhTranslation,
-          SystemPurposes: zhSystemPurposes,
+          
         },
       },
     },
