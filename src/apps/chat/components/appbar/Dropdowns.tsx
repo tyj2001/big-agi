@@ -6,14 +6,13 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 import { DLLMId, DModelSourceId } from '~/modules/llms/llm.types';
-import { useTranslation } from 'react-i18next';
+import { SystemPurposeId, SystemPurposes } from '../../../../data';
 import { useModelsStore } from '~/modules/llms/store-llms';
 
 import { AppBarDropdown, DropdownItems } from '~/common/layouts/appbar/AppBarDropdown';
 import { useChatStore } from '~/common/state/store-chats';
 import { useUIPreferencesStore, useUIStateStore } from '~/common/state/store-ui';
 
-import { SystemPurposeId } from '../../../../data';
 
 export function Dropdowns(props: {
   conversationId: string | null
@@ -37,9 +36,6 @@ export function Dropdowns(props: {
   const { openLLMOptions, openModelsSetup } = useUIStateStore(state => ({
     openLLMOptions: state.openLLMOptions, openModelsSetup: state.openModelsSetup,
   }), shallow);
-
-  // Translation hook
-  const { t } = useTranslation();
 
   const handleChatModelChange = (event: any, value: DLLMId | null) =>
     value && props.conversationId && setChatLLMId(value);
@@ -98,7 +94,7 @@ export function Dropdowns(props: {
     {/* Persona selector */}
     {systemPurposeId && (
       <AppBarDropdown
-        items={t(`SystemPurposes.${systemPurposeId}`)} showSymbols={zenMode !== 'cleaner'}
+        items={SystemPurposes} showSymbols={zenMode !== 'cleaner'}
         value={systemPurposeId} onChange={handleSystemPurposeChange}
       />
     )}
