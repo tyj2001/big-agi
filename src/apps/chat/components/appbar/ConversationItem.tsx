@@ -9,7 +9,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { DConversation, useChatStore } from '~/common/state/store-chats';
 import { InlineTextarea } from '~/common/components/InlineTextarea';
 import { useUIPreferencesStore } from '~/common/state/store-ui';
-import { useTranslation } from 'react-i18next';
+import { SystemPurposes } from '../../../../data';
 
 
 const DEBUG_CONVERSATION_IDs = false;
@@ -25,7 +25,7 @@ export function ConversationItem(props: {
   conversationActivate: (conversationId: string) => void,
   conversationDelete: (conversationId: string) => void,
 }) {
- const { t } = useTranslation();
+
   // state
   const [isEditingTitle, setIsEditingTitle] = React.useState(false);
   const [deleteArmed, setDeleteArmed] = React.useState(false);
@@ -76,8 +76,7 @@ export function ConversationItem(props: {
 
   const handleDeleteCancel = () => setDeleteArmed(false);
 
- 
-  const textSymbol = t(`SystemPurposes.${systemPurposeId}.symbol`) || '❓';
+  const textSymbol = SystemPurposes[systemPurposeId]?.symbol || '❓';
   const buttonSx: SxProps = { ml: 1, ...(props.isActive ? { color: 'white' } : {}) };
 
   return (
