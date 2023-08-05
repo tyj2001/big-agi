@@ -13,6 +13,7 @@ import { AppBarDropdown, DropdownItems } from '~/common/layouts/appbar/AppBarDro
 import { useChatStore } from '~/common/state/store-chats';
 import { useUIPreferencesStore, useUIStateStore } from '~/common/state/store-ui';
 
+import { SystemPurposeId } from '../../data';
 
 export function Dropdowns(props: {
   conversationId: string | null
